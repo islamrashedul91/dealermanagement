@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>onlinep</display-name>
+  <welcome-file-list>
+    <!-- <welcome-file>/jsp/customer/customerInfoList.jsp</welcome-file> -->
+    <welcome-file>base.jsp</welcome-file>
+    <!-- <welcome-file>guestProduct.jsp</welcome-file> -->
+  </welcome-file-list>
+  
+  <session-config>
+    <session-timeout>10</session-timeout>
+  </session-config>
+  
+  <!-- for customer [S] -->
+  <servlet>
+    <description></description>
+    <display-name>CustomerInfoController</display-name>
+    <servlet-name>CustomerInfoController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.CustomerInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerInfoController</servlet-name>
+    <url-pattern>/CustomerInfoController</url-pattern>
+  </servlet-mapping>
+  <!-- for customer [E] -->
+  
+  <!-- for Product Category [S] -->
+  <servlet>
+    <description></description>
+    <display-name>ProductCategoryController</display-name>
+    <servlet-name>ProductCategoryController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.ProductCategoryController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductCategoryController</servlet-name>
+    <url-pattern>/ProductCategoryController</url-pattern>
+  </servlet-mapping>
+  <!-- for Product Category [E] -->
+  
+  <!-- for Generic [S] -->
+  <servlet>
+    <description></description>
+    <display-name>GenericController</display-name>
+    <servlet-name>GenericController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.GenericController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GenericController</servlet-name>
+    <url-pattern>/GenericController</url-pattern>
+  </servlet-mapping>
+  <!-- for Generic [E] -->
+  
+  <!-- for Brand [S] -->
+  <servlet>
+    <description></description>
+    <display-name>BrandController</display-name>
+    <servlet-name>BrandController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.BrandController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BrandController</servlet-name>
+    <url-pattern>/BrandController</url-pattern>
+  </servlet-mapping>
+  <!-- for Brand [E] -->
+  
+  <!-- for Pack Pieces [S] -->
+  <servlet>
+    <description></description>
+    <display-name>PackPicecesController</display-name>
+    <servlet-name>PackPicecesController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.PackPicecesController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PackPicecesController</servlet-name>
+    <url-pattern>/PackPicecesController</url-pattern>
+  </servlet-mapping>
+  <!-- for Pack Pieces [E] -->
+  
+  <!-- for Product [S] -->
+  <servlet>
+    <description></description>
+    <display-name>ProductController</display-name>
+    <servlet-name>ProductController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.ProductController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductController</servlet-name>
+    <url-pattern>/ProductController</url-pattern>
+  </servlet-mapping>
+  <!-- for Product [E] -->
+  
+  <!-- for Product Type [S] -->
+  <servlet>
+    <description></description>
+    <display-name>ProductTypeController</display-name>
+    <servlet-name>ProductTypeController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.ProductTypeController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductTypeController</servlet-name>
+    <url-pattern>/ProductTypeController</url-pattern>
+  </servlet-mapping>
+  <!-- for Product Type [E] -->
+  
+  <!-- for Company [S] -->
+  <servlet>
+    <description></description>
+    <display-name>CompanyController</display-name>
+    <servlet-name>CompanyController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.CompanyController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CompanyController</servlet-name>
+    <url-pattern>/CompanyController</url-pattern>
+  </servlet-mapping>
+  <!-- for Company [E] -->
+  
+  <!-- for Requisition/Order [S] -->
+  <servlet>
+    <description></description>
+    <display-name>RequisitionController</display-name>
+    <servlet-name>RequisitionController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.RequisitionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RequisitionController</servlet-name>
+    <url-pattern>/RequisitionController</url-pattern>
+  </servlet-mapping>
+  <!-- for Requisition/Order [E] -->
+  
+  <!-- for Sales [S] -->
+  <servlet>
+    <description></description>
+    <display-name>SalesController</display-name>
+    <servlet-name>SalesController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.SalesController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SalesController</servlet-name>
+    <url-pattern>/SalesController</url-pattern>
+  </servlet-mapping>
+  <!-- for Sales [E] -->
+  
+  <!-- for Customer Purchase [S] -->
+  <servlet>
+    <description></description>
+    <display-name>CustomerPurchaseController</display-name>
+    <servlet-name>CustomerPurchaseController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.CustomerPurchaseController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerPurchaseController</servlet-name>
+    <url-pattern>/CustomerPurchaseController</url-pattern>
+  </servlet-mapping>
+  <!-- for Customer Purchase [E] -->
+  
+  <!-- for file upload on client to server [S] -->
+  <servlet>
+      <servlet-name>FileUploadHandler</servlet-name>
+      <servlet-class>com.rashed.pharmacy.controller.FileUploadHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>FileUploadHandler</servlet-name>
+      <url-pattern>/upload</url-pattern>
+  </servlet-mapping>
+  <!-- for file upload on client to server [E] -->
+  
+  <!-- for Customer Transaction [S] -->
+  <servlet>
+    <description></description>
+    <display-name>CustomerTransactionController</display-name>
+    <servlet-name>CustomerTransactionController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.CustomerTransactionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerTransactionController</servlet-name>
+    <url-pattern>/CustomerTransactionController</url-pattern>
+  </servlet-mapping>
+  <!-- for Customer Transaction [S] -->
+  
+  <!-- for Salesman Information [S] -->
+  <servlet>
+    <description></description>
+    <display-name>SalesmanInfoController</display-name>
+    <servlet-name>SalesmanInfoController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.SalesmanInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SalesmanInfoController</servlet-name>
+    <url-pattern>/SalesmanInfoController</url-pattern>
+  </servlet-mapping>
+  <!-- for Salesman Information [E] -->
+  
+  <!-- for Account [S] -->
+  <servlet>
+    <description></description>
+    <display-name>AccountController</display-name>
+    <servlet-name>AccountController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.AccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccountController</servlet-name>
+    <url-pattern>/AccountController</url-pattern>
+  </servlet-mapping>
+  <!-- for Account [E] -->
+  
+  <!-- for Day Wise Account Balance [S] -->
+  <servlet>
+    <description></description>
+    <display-name>DayWiseAccountBalanceController</display-name>
+    <servlet-name>DayWiseAccountBalanceController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.DayWiseAccountBalanceController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DayWiseAccountBalanceController</servlet-name>
+    <url-pattern>/DayWiseAccountBalanceController</url-pattern>
+  </servlet-mapping>
+  <!-- for Day Wise Account Balance [S] -->
+  
+  <!-- for Purchase [S] -->
+  <servlet>
+    <description></description>
+    <display-name>PurchaseController</display-name>
+    <servlet-name>PurchaseController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.PurchaseController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PurchaseController</servlet-name>
+    <url-pattern>/PurchaseController</url-pattern>
+  </servlet-mapping>
+  <!-- for Purchase [E] -->
+  
+  <!-- for return or cancel Transaction [S] -->
+  <servlet>
+    <description></description>
+    <display-name>TransactionController</display-name>
+    <servlet-name>TransactionController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.TransactionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TransactionController</servlet-name>
+    <url-pattern>/TransactionController</url-pattern>
+  </servlet-mapping>
+  <!-- for return or cancel Transaction [E] -->
+  
+  <!-- for Profit Loss [S] -->
+  <servlet>
+    <description></description>
+    <display-name>ProfitLossController</display-name>
+    <servlet-name>ProfitLossController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.ProfitLossController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfitLossController</servlet-name>
+    <url-pattern>/ProfitLossController</url-pattern>
+  </servlet-mapping>
+  <!-- for Profit Loss [E] -->
+  
+  <!-- for RequisitionMulti [S] -->
+  <servlet>
+    <description></description>
+    <display-name>RequisitionMultiController</display-name>
+    <servlet-name>RequisitionMultiController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.RequisitionMultiController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RequisitionMultiController</servlet-name>
+    <url-pattern>/RequisitionMultiController</url-pattern>
+  </servlet-mapping>
+  <!-- for RequisitionMulti [E] -->
+  
+  <!-- for RequisitionProduct [S] -->
+  <servlet>
+    <description></description>
+    <display-name>RequisitionProductController</display-name>
+    <servlet-name>RequisitionProductController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.RequisitionProductController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RequisitionProductController</servlet-name>
+    <url-pattern>/RequisitionProductController</url-pattern>
+  </servlet-mapping>
+  <!-- for RequisitionProduct [E] -->
+  
+  <!-- for SalesMain [S] -->
+  <servlet>
+    <description></description>
+    <display-name>SalesMainController</display-name>
+    <servlet-name>SalesMainController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.SalesMainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SalesMainController</servlet-name>
+    <url-pattern>/SalesMainController</url-pattern>
+  </servlet-mapping>
+  <!-- for SalesMain [E] -->
+  
+  <!-- for Sales Product [S] -->
+  <servlet>
+    <description></description>
+    <display-name>SalesProductController</display-name>
+    <servlet-name>SalesProductController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.SalesProductController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SalesProductController</servlet-name>
+    <url-pattern>/SalesProductController</url-pattern>
+  </servlet-mapping>
+  <!-- for Sales Product [E] -->
+  
+  <!-- for Customer Purchase Main [S]-->
+  <servlet>
+    <description></description>
+    <display-name>CustomerPurchaseMainController</display-name>
+    <servlet-name>CustomerPurchaseMainController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.CustomerPurchaseMainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerPurchaseMainController</servlet-name>
+    <url-pattern>/CustomerPurchaseMainController</url-pattern>
+  </servlet-mapping>
+  <!-- for Customer Purchase Main [E]-->
+  
+  <!-- for Customer Purchase Product [S] -->
+  <servlet>
+    <description></description>
+    <display-name>CustomerPurchaseProductController</display-name>
+    <servlet-name>CustomerPurchaseProductController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.CustomerPurchaseProductController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerPurchaseProductController</servlet-name>
+    <url-pattern>/CustomerPurchaseProductController</url-pattern>
+  </servlet-mapping>
+  <!-- for Customer Purchase Product [E] -->
+  
+  <!-- for Customer Transaction Main [S]-->
+  <servlet>
+    <description></description>
+    <display-name>CustomerTransactionMainController</display-name>
+    <servlet-name>CustomerTransactionMainController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.CustomerTransactionMainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerTransactionMainController</servlet-name>
+    <url-pattern>/CustomerTransactionMainController</url-pattern>
+  </servlet-mapping>
+  <!-- for Customer Transaction Main [E]-->
+  
+  <!-- for Customer Transaction Product [S] -->
+  <servlet>
+    <description></description>
+    <display-name>CustomerTransactionProductController</display-name>
+    <servlet-name>CustomerTransactionProductController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.CustomerTransactionProductController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerTransactionProductController</servlet-name>
+    <url-pattern>/CustomerTransactionProductController</url-pattern>
+  </servlet-mapping>
+  <!-- for Customer Transaction Product [E] -->
+  
+  <!-- for Purchase Main [S] -->
+  <servlet>
+    <description></description>
+    <display-name>PurchaseMainController</display-name>
+    <servlet-name>PurchaseMainController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.PurchaseMainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PurchaseMainController</servlet-name>
+    <url-pattern>/PurchaseMainController</url-pattern>
+  </servlet-mapping>
+  <!-- for Purchase Main [E] -->
+  
+  <!-- for Purchase Product [S] -->
+  <servlet>
+    <description></description>
+    <display-name>PurchaseProductController</display-name>
+    <servlet-name>PurchaseProductController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.PurchaseProductController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PurchaseProductController</servlet-name>
+    <url-pattern>/PurchaseProductController</url-pattern>
+  </servlet-mapping>
+  <!-- for Purchase Product [E] -->
+  
+  <!-- for Transaction Main [S] -->
+  <servlet>
+    <description></description>
+    <display-name>TransactionMainController</display-name>
+    <servlet-name>TransactionMainController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.TransactionMainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TransactionMainController</servlet-name>
+    <url-pattern>/TransactionMainController</url-pattern>
+  </servlet-mapping>
+  <!-- for Transaction Main [E] -->
+  
+  <!-- for Transaction Product [S] -->
+  <servlet>
+    <description></description>
+    <display-name>TransactionProductController</display-name>
+    <servlet-name>TransactionProductController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.TransactionProductController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TransactionProductController</servlet-name>
+    <url-pattern>/TransactionProductController</url-pattern>
+  </servlet-mapping>
+  <!-- for Transaction Product [E] -->
+  
+  <!-- for Owner Information [S] -->
+  <servlet>
+    <description></description>
+    <display-name>OwnerInfoController</display-name>
+    <servlet-name>OwnerInfoController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.OwnerInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OwnerInfoController</servlet-name>
+    <url-pattern>/OwnerInfoController</url-pattern>
+  </servlet-mapping>
+  <!-- for Owner Information [E] -->
+  
+  <!-- for Expense Category [S] -->
+  <servlet>
+    <description></description>
+    <display-name>ExpenseCategoryController</display-name>
+    <servlet-name>ExpenseCategoryController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.ExpenseCategoryController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExpenseCategoryController</servlet-name>
+    <url-pattern>/ExpenseCategoryController</url-pattern>
+  </servlet-mapping>
+  <!-- for Expense Category [E] -->
+  
+  <!-- for Expense Main [S] -->
+  <servlet>
+    <description></description>
+    <display-name>ExpenseMainController</display-name>
+    <servlet-name>ExpenseMainController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.ExpenseMainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExpenseMainController</servlet-name>
+    <url-pattern>/ExpenseMainController</url-pattern>
+  </servlet-mapping>
+  <!-- for Expense Main [E] -->
+  
+  <!-- for Expense Product [S] -->
+  <servlet>
+    <description></description>
+    <display-name>ExpenseProductController</display-name>
+    <servlet-name>ExpenseProductController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.ExpenseProductController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExpenseProductController</servlet-name>
+    <url-pattern>/ExpenseProductController</url-pattern>
+  </servlet-mapping>
+  <!-- for Expense Product [E] -->
+  
+</web-app>

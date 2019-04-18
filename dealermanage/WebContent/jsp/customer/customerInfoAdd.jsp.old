@@ -1,0 +1,201 @@
+<jsp:include page="../../base.jsp"></jsp:include>
+<br>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>icwallet</title>
+<link rel="stylesheet" 	href="${pageContext.request.contextPath}/css/table.css">
+</head>
+<body>
+<%
+String action = (String) session.getAttribute("action");
+System.out.println("++++++"+action);
+
+//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+Date date = new Date();  
+//System.out.println(formatter.format(date));
+String strDate = formatter.format(date);
+System.out.println("strDate"+strDate);
+%>
+	<table align="center">
+				<tr>
+				<%
+				if (action.equalsIgnoreCase("save")) {
+				%>
+					<td class="PageHeader">Customer Add</td>
+				<%
+				} else if (action.equalsIgnoreCase("edit")) {
+				%>
+					<td class="PageHeader">Customer Update</td>
+				<%
+				}
+				%>	
+				</tr>
+	</table>
+	<br>
+	
+	<form action="CustomerInfoController" method="post" name="frmSave">
+		<table align="center">
+			<%
+			if (action.equalsIgnoreCase("save")) {
+			%>
+			<tr>
+				<td Class ="FormCellColor">Customer ID</td>
+				<td Class ="FormInputColor"><input type="text" name="customer_id" value="${customerInfo.customer_id}"  maxlength=30 size=40 required /></td>
+			</tr>
+			<%
+			} else if (action.equalsIgnoreCase("edit")) {
+			%>
+			<tr>
+				<td Class ="FormCellColor">Customer ID</td>
+				<td Class ="FormInputColor"><input type="text" readonly="readonly" name="customer_id" value="${customerInfo.customer_id}"  maxlength=30 size=40 required /></td>
+			</tr>
+			<%
+			}
+			%>
+			<tr>
+				<td Class ="FormCellColor">Customer Name</td>
+				<td Class ="FormInputColor"><input type="text" name="customer_name"	value="${customerInfo.customer_name}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Customer Description</td>
+				<td Class ="FormInputColor"><input type="text" name="customer_desc"	value="${customerInfo.customer_desc}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Customer Type</td>
+				<td Class ="FormInputColor"><input type="text" name="customer_type"	value="${customerInfo.customer_type}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Customer Since</td>
+				<td Class ="FormInputColor"><input type="text" name="customer_start_date"	value="${customerInfo.customer_start_date}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Father Name</td>
+				<td Class ="FormInputColor"><input type="text" name="father_name"	value="${customerInfo.father_name}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Mother Name</td>
+				<td Class ="FormInputColor"><input type="text" name="mother_name"	value="${customerInfo.mother_name}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">NID No.</td>
+				<td Class ="FormInputColor"><input type="text" name="nid"	value="${customerInfo.nid}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Date of Birth</td>
+				<td Class ="FormInputColor"><input type="text" name="dob"	value="${customerInfo.dob}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Occupation</td>
+				<td Class ="FormInputColor"><input type="text" name="occupation"	value="${customerInfo.occupation}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Country Code</td>
+				<td Class ="FormInputColor"><input type="text" name="country_id"	value="${customerInfo.country_id}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Mobile</td>
+				<td Class ="FormInputColor"><input type="text" name="mobile" value="${customerInfo.mobile}"  maxlength=25 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Email</td>
+				<td Class ="FormInputColor"><input type="text" name="email" value="${customerInfo.email}"  maxlength=40 size=40 /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Account ID</td>
+				<td Class ="FormInputColor"><input type="text" name="account_id"	value="${customerInfo.account_id}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Home Address</td>
+				<td Class ="FormInputColor"><input type="text" name="home_address"	value="${customerInfo.home_address}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Office Address</td>
+				<td Class ="FormInputColor"><input type="text" name="office_address"	value="${customerInfo.office_address}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Profession</td>
+				<td Class ="FormInputColor"><input type="text" name="profession"	value="${customerInfo.profession}"  maxlength=40 size=40 required /></td>
+			</tr>
+			
+			<tr>
+				<td Class ="FormCellColor">Password</td>
+				<td Class ="FormInputColor"><input type="password" name="password" value="${customerInfo.password}"  maxlength=200 size=40 /></td>
+			</tr>
+			<tr>
+				<td Class ="FormCellColor">Status</td>
+				<td Class ="FormInputColor"><input type="text" name="status" value="${customerInfo.status}" maxlength="1"  maxlength=1 size=40 required /></td>
+			</tr>
+			
+			<%
+			if (action.equalsIgnoreCase("save")) {
+			%>
+			<tr>
+				<td Class ="FormCellColor">Created</td>
+				<%--<td Class ="FormInputColor"><input type="text" name="created" placeholder="YYYYMMDD" value="${merchantBranch.created}"  maxlength=14 size=40 required /></td> --%>
+				<td Class ="FormInputColor"><input type="text" readonly="readonly" name="created" placeholder="YYYYMMDD" value="<%=strDate%>"  maxlength=14 size=40 required /></td>
+			</tr>
+			<%
+			} else if (action.equalsIgnoreCase("edit")) {
+			%>
+			<tr>
+				<td Class ="FormCellColor">Created</td>
+				<td Class ="FormInputColor"><input type="text" readonly="readonly" name="created" placeholder="YYYYMMDD" value="${customerInfo.created}"  maxlength=14 size=40 /></td>
+			</tr>
+			<%
+			}
+			%>
+			
+			<%
+			if (action.equalsIgnoreCase("save")) {
+			%>
+			<tr>
+				<td Class ="FormCellColor">updated</td>
+				<td Class ="FormInputColor"><input type="text" readonly="readonly" name="updated" placeholder="YYYYMMDD" value="${customerInfo.updated}"  maxlength=14 size=40 /></td>
+			</tr>
+			<%
+			} else if (action.equalsIgnoreCase("edit")) {
+			%>
+			<tr>
+				<td Class ="FormCellColor">updated</td>
+				<%--<td Class ="FormInputColor"><input type="text" name="updated" placeholder="YYYYMMDD" value="${merchantBranch.updated}"  maxlength=14 size=40 required /></td> --%>
+				<td Class ="FormInputColor"><input type="text" readonly="readonly" name="updated" placeholder="YYYYMMDD" value="<%=strDate%>"  maxlength=14 size=40 required /></td>
+			</tr>
+			<%
+			}
+			%>
+			
+			<tr>
+				<td Class ="FormCellColor"></td>
+				<td Class ="FormCellColor"><input type="submit" value="save">
+				<a Class ="button" href="${pageContext.request.contextPath}/jsp/customer/customerInfo.jsp">Return</a></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
+<br>
+<div>
