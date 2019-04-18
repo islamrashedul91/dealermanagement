@@ -27,17 +27,96 @@
 			</ul>
 		</div>
 		<div id="panel1">
-			<!-- <span data-panel="panel1" class="panel-button" style="margin:0 30px 0 auto;"></span> -->
-			<div id="accordion">
+		
+			<div class="menu">
+			
+				<a href="${pageContext.request.contextPath}/base.jsp"><i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a>
+				
+				<button class="dropdown-btn">
+					<span>&nbsp;Owner Management</span> <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/owner/ownerInfo.jsp">&nbsp;Owner Information</a>
+				</div>
+				
+				<button class="dropdown-btn">
+					<span>&nbsp;Account Management</span> <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/account/account.jsp">&nbsp;Account Information</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/account/dayWiseAccountBalance.jsp">&nbsp;Day Wise Account Balance</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/account/profitLoss.jsp">&nbsp;Profit Loss Infomation</a>
+				</div>
+				
+				<button class="dropdown-btn">
+					<span>&nbsp;Product Management</span> <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/productCategory.jsp">&nbsp;Product Category</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/generic.jsp">&nbsp;Generic</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/packPiceces.jsp">&nbsp;Pack Pieces</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/productType.jsp">&nbsp;Product Type</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/brand.jsp">&nbsp;Brand</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/product.jsp">&nbsp;Product</a>
+				</div>
+				
+				<button class="dropdown-btn">
+					<span>&nbsp;Sales Management</span> <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/order/requisitionMulti.jsp">&nbsp;Multi Order</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/order/salesMain.jsp">&nbsp;Sales Main</a>
+				</div>
+				
+				<button class="dropdown-btn">
+					<span>&nbsp;Purchase Management</span> <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/order/purchaseMain.jsp">&nbsp;Purchase Main</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/order/transactionMain.jsp">&nbsp;Transaction Main</a>
+				</div>
+				
+				<button class="dropdown-btn">
+					<span>&nbsp;Customer Management</span> <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/customer/customerInfo.jsp">&nbsp;Customer Information</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/order/customerPurchaseMain.jsp">&nbsp;Customer Purchase Main</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/order/customerTransactionMain.jsp">&nbsp;Customer Transaction Main</a>
+				</div>
+				
+				<button class="dropdown-btn">
+					<span>&nbsp;Salesman Management</span> <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/salesman/salesmanInfo.jsp">&nbsp;Salesman Information</a>
+				</div>
+				
+				<button class="dropdown-btn">
+					<span>&nbsp;Expense Management</span> <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/expense/expenseCategory.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Expense Category</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/expense/expenseMain.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Expense Main</a>
+				</div>
+				
+				<button class="dropdown-btn">
+					<span>&nbsp;Company Management</span> <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/company.jsp">&nbsp;Company</a>
+				</div>
+			</div>
+			<%-- <div id="accordion">
 				<ul>
-					<%-- <li><a href="${pageContext.request.contextPath}/load_modules.jsp"><i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a></li> --%>
+					<li><a href="${pageContext.request.contextPath}/load_modules.jsp"><i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a></li>
 					<li><a href="${pageContext.request.contextPath}/base.jsp"><i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a></li>					
-					<%-- <li><a href="${pageContext.request.contextPath}/index.jsp"><i class="fas fa-store-alt"></i>&nbsp;Merchant</a></li>
-					<li><a href="${pageContext.request.contextPath}/jsp/merchant/merchantBranch.jsp"><i class="fab fa-font-awesome-flag"></i>&nbsp;Merchant Branch</a></li> --%>
-					<%-- <li><a href="${pageContext.request.contextPath}/jsp/merchant/merchantBranchAll.jsp"><i class="fab fa-font-awesome-flag"></i>&nbsp;All Branches</a></li>
+					<li><a href="${pageContext.request.contextPath}/index.jsp"><i class="fas fa-store-alt"></i>&nbsp;Merchant</a></li>
+					<li><a href="${pageContext.request.contextPath}/jsp/merchant/merchantBranch.jsp"><i class="fab fa-font-awesome-flag"></i>&nbsp;Merchant Branch</a></li>
+					<li><a href="${pageContext.request.contextPath}/jsp/merchant/merchantBranchAll.jsp"><i class="fab fa-font-awesome-flag"></i>&nbsp;All Branches</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/merchant/merchantTransactionByBranchID.jsp"><i class="fas fa-history"></i>&nbsp;Merchant Transactions</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/merchant/merchantTransactionByBranch.jsp"><i class="fas fa-history"></i>&nbsp;Merchant Transactions</a></li>
-					<li><a href="${pageContext.request.contextPath}/jsp/merchant/settlement.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Merchant Receivable</a></li> --%>
+					<li><a href="${pageContext.request.contextPath}/jsp/merchant/settlement.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Merchant Receivable</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/owner/ownerInfo.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Owner Information</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/account/account.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Account Information</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/account/dayWiseAccountBalance.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Day Wise Account Balance</a></li>
@@ -50,23 +129,23 @@
 					<li><a href="${pageContext.request.contextPath}/jsp/product/product.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Product</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/product/productType.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Product Type</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/product/company.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Company</a></li>
-					<%-- <li><a href="${pageContext.request.contextPath}/jsp/order/requisition.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Order</a></li> --%>
+					<li><a href="${pageContext.request.contextPath}/jsp/order/requisition.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Order</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/order/requisitionMulti.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Multi Order</a></li>
-					<%-- <li><a href="${pageContext.request.contextPath}/jsp/order/sales.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Sales</a></li> --%>
+					<li><a href="${pageContext.request.contextPath}/jsp/order/sales.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Sales</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/order/salesMain.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Sales Main</a></li>
-					<%-- <li><a href="${pageContext.request.contextPath}/jsp/order/customerPurchase.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Customer Purchase</a></li> --%>
+					<li><a href="${pageContext.request.contextPath}/jsp/order/customerPurchase.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Customer Purchase</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/order/customerPurchaseMain.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Customer Purchase Main</a></li>
-					<%-- <li><a href="${pageContext.request.contextPath}/jsp/order/customerTransaction.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Customer Transaction</a></li> --%>
+					<li><a href="${pageContext.request.contextPath}/jsp/order/customerTransaction.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Customer Transaction</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/order/customerTransactionMain.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Customer Transaction Main</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/salesman/salesmanInfo.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Salesman Information</a></li>
-					<%-- <li><a href="${pageContext.request.contextPath}/jsp/order/purchase.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Purchase Information</a></li> --%>
+					<li><a href="${pageContext.request.contextPath}/jsp/order/purchase.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Purchase Information</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/order/purchaseMain.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Purchase Main</a></li>
-					<%-- <li><a href="${pageContext.request.contextPath}/jsp/order/transaction.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Transaction Information</a></li> --%>
+					<li><a href="${pageContext.request.contextPath}/jsp/order/transaction.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Transaction Information</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/order/transactionMain.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Transaction Main</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/expense/expenseCategory.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Expense Category</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/expense/expenseMain.jsp"><i class="far fa-money-bill-alt"></i>&nbsp;Expense Main</a></li>
 				</ul>
-			</div>
+			</div> --%>
 		</div>
 		<!-- <div class="menu">
 			<a href="#"><span><i class="fa fa-dashboard"></i>&nbsp;Dashboard</span></a>
