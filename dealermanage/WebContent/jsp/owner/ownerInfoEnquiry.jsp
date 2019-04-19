@@ -1,6 +1,7 @@
 <jsp:include page="../../base.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +49,11 @@
 				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.owner_type}" /></td> --%>
 				<td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.owner_type == 'I' ? 'Individual' : ownerInfo.owner_type == 'J' ? 'Join' : ownerInfo.owner_type == 'O' ? 'Other' : ''}" /></td>
 				<td Class ="FormCellColor" colspan="2">Owner Since</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.owner_start_date}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.owner_start_date}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${ownerInfo.owner_start_date}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 				<td Class ="FormCellColor" colspan="2">Father Name</td>
 				<td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.father_name}" /></td>
 			</tr>
@@ -91,9 +96,17 @@
 			
 			<tr>
 				<td Class ="FormCellColor" colspan="2">Created</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.created}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.created}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${ownerInfo.created}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 				<td Class ="FormCellColor" colspan="2">Updated</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.updated}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.updated}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${ownerInfo.updated}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 			</tr>
 			
 		</table>

@@ -4,6 +4,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -120,7 +121,14 @@ String message = (String) request.getAttribute("success");
 				<tr>
 					<td Class ="FormInputColor"><input type="radio" name="day_wise_balance_id" id="day_wise_balance_id" value="${dwab.day_wise_balance_id}" onclick="javascript: getRadioValue();" /></td>
 					<td Class ="FormInputColor"><c:out value="${dwab.day_wise_balance_id}" /></td>
-					<td Class ="FormInputColor"><c:out value="${dwab.date_time}" /></td>
+					<%-- <td Class ="FormInputColor"><c:out value="${dwab.date_time}" /></td> --%>
+					<td Class ="FormInputColor">
+					<%-- <c:set var="msg" value="${dwab.date_time}"/>
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${fn:substring(msg, 0, 14)}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${dwab.date_time}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+					</td>
 					<td Class ="FormInputColor"><c:out value="${dwab.account_id}" /></td>
 					<td Class ="FormInputColor"><c:out value="${dwab.account_type}" /></td>
 					<td Class ="FormInputColor"><c:out value="${dwab.account_name}" /></td>
