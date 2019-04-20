@@ -1,6 +1,7 @@
 <jsp:include page="../../base.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +51,11 @@
 				<td Class ="FormCellColor" colspan="2">Product Category ID</td>
 				<td Class ="FormInputColor" colspan="2"><c:out value="${brand.product_category_id}" /></td>
 				<td Class ="FormCellColor" colspan="2">Created</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${brand.created}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${brand.created}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${brand.created}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 			</tr>
 			
 			<tr>
@@ -62,7 +67,11 @@
 			
 			<tr>
 				<td Class ="FormCellColor" colspan="2">Updated</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${brand.updated}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${brand.updated}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${brand.updated}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 			</tr>
 		</table>
 		<br>

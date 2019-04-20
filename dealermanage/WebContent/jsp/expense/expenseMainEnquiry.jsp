@@ -1,6 +1,7 @@
 <jsp:include page="../../base.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +39,11 @@
 				<td Class ="FormCellColor" colspan="2">Expense Type</td>
 				<td Class ="FormInputColor" colspan="2"><c:out value="${expenseMain.expense_type}" /></td>
 				<td Class ="FormCellColor" colspan="2">DateTime</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${expenseMain.date_time}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${expenseMain.date_time}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${expenseMain.date_time}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 			</tr>
 			
 			<tr>
@@ -74,12 +79,20 @@
 				<td Class ="FormCellColor" colspan="2">Expense Status</td>
 				<td Class ="FormInputColor" colspan="2"><c:out value="${expenseMain.expense_status == 'P' ? 'Pending' : expenseMain.expense_status == 'A' ? 'Approved' : expenseMain.expense_status == 'C' ? 'Cancel' : expenseMain.expense_status == 'S' ? 'Success' : expenseMain.expense_status == 'R' ? 'Return' : ''}" /></td>
 				<td Class ="FormCellColor" colspan="2">Created</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${expenseMain.created}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${expenseMain.created}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${expenseMain.created}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 			</tr>
 			
 			<tr>
 				<td Class ="FormCellColor" colspan="2">Updated</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${expenseMain.updated}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${expenseMain.updated}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${expenseMain.updated}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 				<td Class ="FormCellColor" colspan="2">Created By</td>
 				<td Class ="FormInputColor" colspan="2"><c:out value="${expenseMain.created_by}" /></td>
 				<td Class ="FormCellColor" colspan="2">Updated By</td>

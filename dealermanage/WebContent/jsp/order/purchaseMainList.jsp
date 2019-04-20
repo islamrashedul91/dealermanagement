@@ -18,6 +18,7 @@ if (action.equalsIgnoreCase("approve") || action.equalsIgnoreCase("deliveryAppro
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -160,7 +161,11 @@ String message = (String) request.getAttribute("success");
 				<tr>
 					<td Class ="FormInputColor"><input type="radio" name="purchase_id" id="purchase_id" value="${pm.purchase_id}" onclick="javascript: getRadioValue();" /></td>
 					<td Class ="FormInputColor"><c:out value="${pm.purchase_id}" /></td>
-					<td Class ="FormInputColor"><c:out value="${pm.date_time}" /></td>
+					<%-- <td Class ="FormInputColor"><c:out value="${pm.date_time}" /></td> --%>
+					<td Class ="FormInputColor">
+						<fmt:parseDate pattern="yyyyMMddHHmmss" value="${pm.date_time}" var="parsedDate" />
+						<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+					</td>
 					<%-- <td Class ="FormInputColor"><c:out value="${pm.customer_id}" /></td> --%>
 					<td Class ="FormInputColor"><c:out value="${pm.owner_name}" /></td>
 					<td Class ="FormInputColor"><c:out value="${pm.mobile}" /></td>

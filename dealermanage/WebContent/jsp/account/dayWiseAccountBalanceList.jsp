@@ -126,8 +126,8 @@ String message = (String) request.getAttribute("success");
 					<%-- <c:set var="msg" value="${dwab.date_time}"/>
 					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${fn:substring(msg, 0, 14)}" var="parsedDate" />
 					<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
-					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${dwab.date_time}" var="parsedDate" />
-					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+						<fmt:parseDate pattern="yyyyMMddHHmmss" value="${dwab.date_time}" var="parsedDate" />
+						<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
 					</td>
 					<td Class ="FormInputColor"><c:out value="${dwab.account_id}" /></td>
 					<td Class ="FormInputColor"><c:out value="${dwab.account_type}" /></td>

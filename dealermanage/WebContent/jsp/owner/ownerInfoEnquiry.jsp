@@ -51,8 +51,8 @@
 				<td Class ="FormCellColor" colspan="2">Owner Since</td>
 				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.owner_start_date}" /></td> --%>
 				<td Class ="FormInputColor" colspan="2">
-				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${ownerInfo.owner_start_date}" var="parsedDate" />
-				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${ownerInfo.owner_start_date}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
 				</td>
 				<td Class ="FormCellColor" colspan="2">Father Name</td>
 				<td Class ="FormInputColor" colspan="2"><c:out value="${ownerInfo.father_name}" /></td>

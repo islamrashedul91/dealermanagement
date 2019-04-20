@@ -92,7 +92,9 @@ public class CustomerInfoController extends HttpServlet {
 		ci.setHome_address(request.getParameter("home_address"));
 		ci.setOffice_address(request.getParameter("office_address"));
 		ci.setProfession(request.getParameter("profession"));
-		ci.setPassword(request.getParameter("password"));
+		if(action.equalsIgnoreCase("save")){
+			ci.setPassword(request.getParameter("password"));
+		}
 		ci.setStatus(request.getParameter("status"));
 		ci.setCreated(request.getParameter("created"));
 		ci.setUpdated(request.getParameter("updated"));

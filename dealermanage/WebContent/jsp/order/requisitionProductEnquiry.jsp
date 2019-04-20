@@ -1,6 +1,7 @@
 <jsp:include page="../../base.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +39,11 @@
 				<td Class ="FormCellColor" colspan="2">Requisition ID</td>
 				<td Class ="FormInputColor" colspan="2"><c:out value="${requisitionProduct.requisition_id}" /></td>
 				<td Class ="FormCellColor" colspan="2">DateTime</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${requisitionProduct.date_time}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${requisitionProduct.date_time}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${requisitionProduct.date_time}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 			</tr>
 			
 			<tr>
@@ -95,9 +100,17 @@
 			
 			<tr>
 				<td Class ="FormCellColor" colspan="2">Created</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${requisitionProduct.created}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${requisitionProduct.created}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${requisitionProduct.created}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 				<td Class ="FormCellColor" colspan="2">Updated</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${requisitionProduct.updated}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${requisitionProduct.updated}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${requisitionProduct.updated}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 			</tr>
 		</table>
 		<br>

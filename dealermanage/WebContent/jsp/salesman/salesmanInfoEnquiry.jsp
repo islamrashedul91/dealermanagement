@@ -1,6 +1,7 @@
 <jsp:include page="../../base.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,11 @@
 				<td Class ="FormCellColor" colspan="2">Salesman Type</td>
 				<td Class ="FormInputColor" colspan="2"><c:out value="${salesmanInfo.salesman_type}" /></td>
 				<td Class ="FormCellColor" colspan="2">Salesman Since</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${salesmanInfo.salesman_start_date}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${salesmanInfo.salesman_start_date}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${salesmanInfo.salesman_start_date}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 				<td Class ="FormCellColor" colspan="2">Father Name</td>
 				<td Class ="FormInputColor" colspan="2"><c:out value="${salesmanInfo.father_name}" /></td>
 			</tr>
@@ -88,9 +93,17 @@
 			
 			<tr>
 				<td Class ="FormCellColor" colspan="2">Created</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${salesmanInfo.created}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${salesmanInfo.created}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${salesmanInfo.created}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 				<td Class ="FormCellColor" colspan="2">Updated</td>
-				<td Class ="FormInputColor" colspan="2"><c:out value="${salesmanInfo.updated}" /></td>
+				<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${salesmanInfo.updated}" /></td> --%>
+				<td Class ="FormInputColor" colspan="2">
+					<fmt:parseDate pattern="yyyyMMddHHmmss" value="${salesmanInfo.updated}" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
 			</tr>
 			
 		</table>

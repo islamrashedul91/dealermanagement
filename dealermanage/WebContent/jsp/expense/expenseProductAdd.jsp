@@ -4,6 +4,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -91,7 +92,11 @@ System.out.println("++++++"+action);
 			<td Class ="FormCellColor">Expense ID</td>
 			<td Class ="FormInputColor" colspan="2"><c:out value="${expense_id}" /></td>
 			<td Class ="FormCellColor">DateTime</td>
-			<td Class ="FormInputColor" colspan="2"><c:out value="${strDateTime}" /></td>
+			<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${strDateTime}" /></td> --%>
+			<td Class ="FormInputColor" colspan="2">
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${strDateTime}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+			</td>
 			<td Class ="FormCellColor">Owner Name</td>
 			<td Class ="FormInputColor" colspan="2"><c:out value="${owner_name}" /></td>
 			<td Class ="FormCellColor">Mobile</td>
@@ -170,13 +175,23 @@ String strDate = formatter.format(date);
 			if (action.equalsIgnoreCase("save")) {
 			%>
 			<label for="field4"><span>DateTime <span class="required">*</span></span>
-				<input type="text" class="input-field-60" readonly="readonly" name="date_time" id="date_time" value="${strDateTime}"  maxlength=14 size=40 required /> 
+				<!-- just display fancy date only [S]-->
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${strDateTime}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" var="fmtDate" />
+				<input type="text" class="input-field-60" readonly="readonly" value="${fmtDate}" size=40/>
+				<!-- just display fancy date only [E]-->
+				<input type="hidden" class="input-field-60" readonly="readonly" name="date_time" id="date_time" value="${strDateTime}"  maxlength=14 size=40 required /> 
 			</label>
 			<%
 			} else if (action.equalsIgnoreCase("edit")) {
 			%>
 			<label for="field4"><span>DateTime <span class="required">*</span></span>
-				<input type="text" class="input-field-60" readonly="readonly" name="date_time" id="date_time" value="${expenseProduct.date_time}"  maxlength=14 size=40 required /> 
+				<!-- just display fancy date only [S]-->
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${expenseProduct.date_time}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" var="fmtDate" />
+				<input type="text" class="input-field-60" readonly="readonly" value="${fmtDate}" size=40/>
+				<!-- just display fancy date only [E]-->
+				<input type="hidden" class="input-field-60" readonly="readonly" name="date_time" id="date_time" value="${expenseProduct.date_time}"  maxlength=14 size=40 required /> 
 			</label>
 			<%
 			}
@@ -291,13 +306,23 @@ String strDate = formatter.format(date);
 			if (action.equalsIgnoreCase("save")) {
 			%>
 			<label for="field14"><span>Created <span class="required">*</span></span>
-				<input type="text" class="input-field-60" readonly="readonly" name="created" id="created" value="<%=strDate%>"  maxlength=14 size=40 required /> 
+				<!-- just display fancy date only [S]-->
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="<%=strDate%>" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" var="fmtDate" />
+				<input type="text" class="input-field-60" readonly="readonly" value="${fmtDate}" size=40/>
+				<!-- just display fancy date only [E]-->
+				<input type="hidden" class="input-field-60" readonly="readonly" name="created" id="created" value="<%=strDate%>"  maxlength=14 size=40 required /> 
 			</label>
 			<%
 			} else if (action.equalsIgnoreCase("edit")) {
 			%>
 			<label for="field14"><span>Created <span class="required">*</span></span>
-				<input type="text" class="input-field-60" readonly="readonly" name="created" id="created" value="${expenseProduct.created}"  maxlength=14 size=40 required /> 
+				<!-- just display fancy date only [S]-->
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${expenseProduct.created}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" var="fmtDate" />
+				<input type="text" class="input-field-60" readonly="readonly" value="${fmtDate}" size=40/>
+				<!-- just display fancy date only [E]-->
+				<input type="hidden" class="input-field-60" readonly="readonly" name="created" id="created" value="${expenseProduct.created}"  maxlength=14 size=40 required /> 
 			</label>
 			<%
 			}
@@ -307,13 +332,23 @@ String strDate = formatter.format(date);
 			if (action.equalsIgnoreCase("save")) {
 			%>
 			<label for="field15"><span>Updated </span>
-				<input type="text" class="input-field-60" readonly="readonly" name="updated" id="updated" value="${expenseProduct.updated}"  maxlength=14 size=40 /> 
+				<!-- just display fancy date only [S]-->
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${expenseProduct.updated}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" var="fmtDate" />
+				<input type="text" class="input-field-60" readonly="readonly" value="${fmtDate}" size=40/>
+				<!-- just display fancy date only [E]-->
+				<input type="hidden" class="input-field-60" readonly="readonly" name="updated" id="updated" value="${expenseProduct.updated}"  maxlength=14 size=40 /> 
 			</label>
 			<%
 			} else if (action.equalsIgnoreCase("edit")) {
 			%>
 			<label for="field15"><span>Updated <span class="required">*</span></span>
-				<input type="text" class="input-field-60" readonly="readonly" name="updated" id="updated" value="<%=strDate%>"  maxlength=14 size=40 required /> 
+				<!-- just display fancy date only [S]-->
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="<%=strDate%>" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" var="fmtDate" />
+				<input type="text" class="input-field-60" readonly="readonly" value="${fmtDate}" size=40/>
+				<!-- just display fancy date only [E]-->
+				<input type="hidden" class="input-field-60" readonly="readonly" name="updated" id="updated" value="<%=strDate%>"  maxlength=14 size=40 required /> 
 			</label>
 			<%
 			}

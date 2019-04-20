@@ -4,6 +4,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -114,7 +115,11 @@ String message = (String) request.getAttribute("success");
 			<td Class ="FormCellColor">Requisition ID</td>
 			<td Class ="FormInputColor" colspan="2"><c:out value="${requisition_multi_id}" /></td>
 			<td Class ="FormCellColor">DateTime</td>
-			<td Class ="FormInputColor" colspan="2"><c:out value="${strDateTimeMulti}" /></td>
+			<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${strDateTimeMulti}" /></td> --%>
+			<td Class ="FormInputColor" colspan="2">
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${strDateTimeMulti}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+			</td>
 			<td Class ="FormCellColor">Customer Name</td>
 			<td Class ="FormInputColor" colspan="2"><c:out value="${customerNameMulti}" /></td>
 			<td Class ="FormCellColor">Mobile</td>
@@ -158,7 +163,11 @@ String message = (String) request.getAttribute("success");
 					<td Class ="FormInputColor"><input type="radio" name="requisition_product_id" id="requisition_product_id" value="${rp.requisition_product_id}" onclick="javascript: getRadioValue();" /></td>
 					<td Class ="FormInputColor"><c:out value="${rp.requisition_product_id}" /></td>
 					<td Class ="FormInputColor"><c:out value="${rp.requisition_id}" /></td>
-					<td Class ="FormInputColor"><c:out value="${rp.date_time}" /></td>
+					<%-- <td Class ="FormInputColor"><c:out value="${rp.date_time}" /></td> --%>
+					<td Class ="FormInputColor">
+						<fmt:parseDate pattern="yyyyMMddHHmmss" value="${rp.date_time}" var="parsedDate" />
+						<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+					</td>
 					<%-- <td Class ="FormInputColor"><c:out value="${rp.product_id}" /></td> --%>
 					<td Class ="FormInputColor"><c:out value="${rp.product_name}" /></td>
 					<%-- <td Class ="FormInputColor"><c:out value="${rp.pack_type}" /></td>
