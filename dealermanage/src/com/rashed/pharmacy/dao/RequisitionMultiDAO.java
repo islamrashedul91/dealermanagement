@@ -504,6 +504,11 @@ public class RequisitionMultiDAO {
 				requisition_id = Integer.parseInt(strRequisition2.replaceAll("[^0-9]", ""));
 				requisition_id = requisition_id+1;
 				rm.setRequisition_id("REQU" + String.valueOf(requisition_id));
+			} else if ((requisition_id < requisition_id1) && (requisition_id < requisition_id2) && (requisition_id1 == requisition_id2)) {
+				String strRequisition1 = rs1.getString("requisition_id");
+				requisition_id = Integer.parseInt(strRequisition1.replaceAll("[^0-9]", ""));
+				requisition_id = requisition_id+1;
+				rm.setRequisition_id("REQU" + String.valueOf(requisition_id));
 			}
 			// for get deleted id [E]
 			
