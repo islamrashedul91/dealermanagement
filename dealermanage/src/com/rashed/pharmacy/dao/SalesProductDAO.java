@@ -930,6 +930,63 @@ public class SalesProductDAO {
 	}
 	// after delivery  return insert into customer_transaction_main based on sales_product id, Requisition_id and date time [E]
 	
+	// success sales update stock one by one from a list based on requisition id and date_time [S]
+	public void getManualSalesProdcutIdForStockUpdate(String requisition_id, String date_time) {
+		SalesProduct rp = new SalesProduct();
+		
+		try{
+			con  = DbUtil.getConnection();
+			ps = con.prepareStatement("SELECT sales_product_id, sales_id, requisition_product_id, requisition_id, product_id, bonus_id, order_status, order_quantity FROM sales_product WHERE requisition_id=? and date_time=?");
+			
+			ps.setString(1, requisition_id);
+			ps.setString(2, date_time);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()){
+				
+				String strSalesProduct = rs.getString("sales_product_id");
+				String strSalesMain = rs.getString("sales_id");
+				String strRequisitionProduct = rs.getString("requisition_product_id");
+				String strRequisition = rs.getString("requisition_id");
+				String strProduct = rs.getString("product_id");
+				String strOrderStatus = rs.getString("order_status");
+				int intOrderQuantity = rs.getInt("order_quantity");
+				
+				//if (strOrderStatus.equals("S") && !strOrderStatus.equals("C")) {
+					pdao.stockUpdate(strProduct, intOrderQuantity);
+				//}
+				
+			}
+			
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(ps != null){
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	// success sales update stock one by one from a list based on requisition id and date_time [E]
+	
 	// delivery return update stock one by one from a list based on sales_main id and date_time [S]
 	public void getProdcutIdForStockUpdate(String requisition_id, String date_time) {
 		SalesProduct rp = new SalesProduct();

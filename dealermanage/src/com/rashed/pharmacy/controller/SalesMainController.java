@@ -135,6 +135,7 @@ public class SalesMainController extends HttpServlet {
 			request.setAttribute("salesMains", smmdao.getAllSalesMain());
 		} else if(action.equalsIgnoreCase("approve")){
 			String sales_id = request.getParameter("sales_id");
+			String strSalesType = smmdao.getSelectedOtherID(sales_id).getSales_type();
 			String requisition_id = smmdao.getSelectedOtherID(sales_id).getRequisition_id();
 			String date_time = smmdao.getSelectedOtherID(sales_id).getDate_time();
 			String strOrderStatus = smmdao.getSelectedOtherID(sales_id).getOrder_status();
@@ -144,6 +145,12 @@ public class SalesMainController extends HttpServlet {
 				// set sales_product order_status='S' based on sales_main id [S]
 				spdao.approveByMainSales(requisition_id, date_time);
 				// set sales_product order_status='S' based on sales_main id [E]
+				
+				// for update stock one by one from manual sales list based on requisition_id and date_time [S]
+				if(strSalesType.equals("Manual")){
+					spdao.getManualSalesProdcutIdForStockUpdate(requisition_id, date_time);
+				}
+				// for update stock one by one from manual sales list based on requisition_id and date_time [E]
 				
 				// requisition_multi to sales_main [S]
 				//smmdao.requisitionMultiToSalesMain(requisition_id, date_time);

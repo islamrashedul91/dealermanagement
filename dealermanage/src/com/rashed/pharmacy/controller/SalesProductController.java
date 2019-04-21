@@ -297,7 +297,7 @@ public class SalesProductController extends HttpServlet {
 		
 		sp.setSales_product_id(request.getParameter("sales_product_id"));
 		sp.setSales_id(request.getParameter("sales_id"));
-		sp.setSales_type("sales_type");
+		sp.setSales_type(request.getParameter("sales_type"));
 		sp.setRequisition_product_id(request.getParameter("requisition_product_id"));
 		sp.setRequisition_id(request.getParameter("requisition_id"));
 		sp.setDate_time(request.getParameter("date_time"));
@@ -323,6 +323,7 @@ public class SalesProductController extends HttpServlet {
 	
 		String sales_product_id = request.getParameter("sales_product_id");
 		String sales_id = request.getParameter("sales_id");
+		String sales_type = request.getParameter("sales_type");
 		String requisition_product_id = request.getParameter("requisition_product_id");
 		String requisition_id = request.getParameter("requisition_id");
 		String strDateTime = request.getParameter("date_time");
@@ -348,6 +349,7 @@ public class SalesProductController extends HttpServlet {
 		HttpSession session1 = request.getSession();
 		
 		request.setAttribute("sales_id", request.getParameter("sales_id"));
+		request.setAttribute("sales_type", sales_type);
 		request.setAttribute("requisition_id", request.getParameter("requisition_id"));
 		request.setAttribute("strDateTime", request.getParameter("date_time"));
 		request.setAttribute("customer_name", smmdao.getSalesMainByIdDateTime(requisition_id, strDateTime).getCustomer_name());
