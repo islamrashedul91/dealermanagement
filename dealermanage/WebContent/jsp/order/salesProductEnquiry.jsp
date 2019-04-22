@@ -143,6 +143,10 @@
 						<%-- <a Class ="button" href="${pageContext.request.contextPath}/RequisitionMultiController?action=requisitionProductListEnquiry&requisition_id=${requisitionProduct.requisition_id}&date_time=${requisitionProduct.date_time}">Return</a></td> --%>
 						<a Class ="button" href="${pageContext.request.contextPath}/SalesMainController?action=salesProductListEnquiry&sales_id=${salesProduct.sales_id}&requisition_id=${salesProduct.requisition_id}&date_time=${salesProduct.date_time}&customer_name=${customer_name}&mobile=${mobile}">Return</a></td>
 						<%
+						} else if (action.equalsIgnoreCase("partialReturnEnquiry")) {
+						%>
+						<a Class ="button" href="${pageContext.request.contextPath}/SalesMainController?action=partialReturn&sales_id=${salesProduct.sales_id}&requisition_id=${salesProduct.requisition_id}&date_time=${salesProduct.date_time}&customer_name=${customer_name}&mobile=${mobile}">Return</a></td>
+						<%
 						} else {
 						%>
 						<%-- <a Class ="button" href="${pageContext.request.contextPath}/RequisitionMultiController?action=return&requisition_id=${requisitionProduct.requisition_id}&date_time=${requisitionProduct.date_time}">Return</a></td> --%>

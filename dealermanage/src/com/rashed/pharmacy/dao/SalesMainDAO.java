@@ -581,7 +581,7 @@ public class SalesMainDAO {
 		try{
 			//PreparedStatement ps = con.prepareStatement("SELECT sales_id, requisition_id, date_time, customer_id, salesman_id, order_status, delivery_status, total_amount FROM sales_main WHERE sales_id=?");
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("SELECT sales_id, sales_type, requisition_id, date_time, customer_id, salesman_id, order_status, delivery_status, total_amount, from_account_id, to_account_id FROM sales_main WHERE sales_id=?");
+			ps = con.prepareStatement("SELECT sales_id, sales_type, requisition_id, date_time, customer_id, salesman_id, order_status, delivery_status, total_amount, from_account_id, to_account_id, customer_name, mobile FROM sales_main WHERE sales_id=?");
 			
 			ps.setString(1, sales_id);
 			
@@ -601,6 +601,8 @@ public class SalesMainDAO {
 				String strToAccount = rs.getString("to_account_id");
 				String strOrderStatus = rs.getString("order_status");
 				String strDeliveryStatus = rs.getString("delivery_status");
+				String strCustomerName = rs.getString("customer_name");
+				String strMobile = rs.getString("mobile");
 				
 				sm.setSales_id(strSalesMain);
 				sm.setSales_type(strSalesType);
@@ -613,6 +615,8 @@ public class SalesMainDAO {
 				sm.setTo_account_id(strToAccount);
 				sm.setOrder_status(strOrderStatus);
 				sm.setDelivery_status(strDeliveryStatus);
+				sm.setCustomer_name(strCustomerName);
+				sm.setMobile(strMobile);
 				
 			}
 			

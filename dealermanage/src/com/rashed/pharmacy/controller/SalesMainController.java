@@ -42,6 +42,7 @@ public class SalesMainController extends HttpServlet {
 	private static String ENQUIRY = "/jsp/order/salesMainEnquiry.jsp";
 	private static String LIST_SALESPRODUCT = "/jsp/order/salesProductList.jsp";
 	private static String LIST_SALESPRODUCTENQUIRY = "/jsp/order/salesProductListEnquiry.jsp";
+	private static String LIST_SALESPRODUCTPARTIALRETURN = "/jsp/order/salesProductListPartialReturn.jsp";
 	
 	private RequisitionMultiDAO rmdao;
 	private RequisitionProductDAO rpdao;
@@ -327,6 +328,51 @@ public class SalesMainController extends HttpServlet {
 			}
 			forward=LIST_SALESMAIN;
 			request.setAttribute("salesMains", smmdao.getAllSalesMain());
+		} else if(action.equalsIgnoreCase("partialReturn")){
+			String sales_id = request.getParameter("sales_id");
+			String strSalesType = smmdao.getSelectedOtherID(sales_id).getSales_type();
+			String strOrderStatus = smmdao.getSelectedOtherID(sales_id).getOrder_status();
+			String strDeliveryStatus = smmdao.getSelectedOtherID(sales_id).getDelivery_status();
+			String strRequisition = smmdao.getSelectedOtherID(sales_id).getRequisition_id();
+			String date_time = smmdao.getSelectedOtherID(sales_id).getDate_time();
+			String strFromAccount = smmdao.getSelectedOtherID(sales_id).getFrom_account_id();
+			String strToAccount = smmdao.getSelectedOtherID(sales_id).getTo_account_id();
+			double doubleTotalAmount = smmdao.getSelectedOtherID(sales_id).getTotal_amount();
+			String customer_name = smmdao.getSelectedOtherID(sales_id).getCustomer_name();
+			String mobile = smmdao.getSelectedOtherID(sales_id).getMobile();
+			
+			if (strOrderStatus.equals("S") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
+				forward=LIST_SALESPRODUCTPARTIALRETURN;
+				request.setAttribute("salesProducts", spdao.getAllSalesProductByMainIdDateTime(sales_id, strRequisition, date_time));
+	
+				request.setAttribute("sales_id", sales_id);
+				request.setAttribute("sales_type", strSalesType);
+				request.setAttribute("requisition_id", strRequisition);
+				request.setAttribute("strDateTime", date_time);
+				request.setAttribute("customer_name", customer_name);
+				request.setAttribute("mobile", mobile);
+				request.setAttribute("sumTotalAmount", spdao.sumTotalAmount(sales_id, strRequisition, date_time).getTotal_amount());
+			} else {
+				if (strOrderStatus.equals("C")) {
+					message = "Sales Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A")) {
+					message = "Without Success Sales can not be Delivered !!!";
+					request.setAttribute("success", message);
+				} else if (strDeliveryStatus.equals("C")) {
+					message = "Delivery Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("S") && strDeliveryStatus.equals("D")) {
+					message = "Already Delivered !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("S") && strDeliveryStatus.equals("R")) {
+					message = "Already Return !!!";
+					request.setAttribute("success", message);
+				}
+				forward=LIST_SALESMAIN;
+				request.setAttribute("salesMains", smmdao.getAllSalesMain());
+			}
+			
 		} else if(action.equalsIgnoreCase("edit")){
 			forward = INSERT_OR_EDIT;
 			String sales_id = request.getParameter("sales_id");

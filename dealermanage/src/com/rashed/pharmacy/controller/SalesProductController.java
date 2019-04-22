@@ -36,6 +36,8 @@ public class SalesProductController extends HttpServlet {
 	private static String INSERT_OR_EDIT = "/jsp/order/salesProductAdd.jsp";
 	private static String LIST_SALESPRODUCT = "/jsp/order/salesProductList.jsp";
 	private static String ENQUIRY = "/jsp/order/salesProductEnquiry.jsp";
+	private static String LIST_SALESPRODUCTPARTIALRETURN = "/jsp/order/salesProductListPartialReturn.jsp";
+	private static String LIST_SALESPRODUCTPARTIALRETURNUPDATE = "/jsp/order/salesProductListPartialReturnUpdate.jsp";
 	
 	private RequisitionProductDAO rpdao;
 	private ProductDAO pdao;
@@ -202,7 +204,8 @@ public class SalesProductController extends HttpServlet {
 					request.setAttribute("success", message);
 				}
 			}
-			forward=LIST_SALESPRODUCT;
+			//forward=LIST_SALESPRODUCT;
+			forward = LIST_SALESPRODUCTPARTIALRETURN;
 
 			request.setAttribute("salesProducts", spdao.getAllSalesProductByMainIdDateTime(strSales, strRequisition, date_time));
 			
@@ -217,7 +220,21 @@ public class SalesProductController extends HttpServlet {
 			
 			smmdao.sumTotalAmountSP(strSales, strRequisition, date_time);
 			
-		} else if(action.equalsIgnoreCase("edit")){
+		} else if(action.equalsIgnoreCase("partialReturn")){
+			forward = LIST_SALESPRODUCTPARTIALRETURNUPDATE;
+			String sales_product_id = request.getParameter("sales_product_id");
+			SalesProduct sp = spdao.getSalesProductById(sales_product_id);
+			request.setAttribute("salesProduct", sp);
+			// for get all the Product_id when update requisition [S]
+			request.setAttribute("allProduct", pdao.getAllProduct());
+			// for get all the Product_id when update requisition [E]
+			
+			// selected other respective id during update [S]
+			request.setAttribute("selectedProductId", spdao.getSelectedOtherID(sales_product_id).getProduct_id());
+			request.setAttribute("selectedBonusId", spdao.getSelectedOtherID(sales_product_id).getBonus_id());
+			// selected other respective id during update [E]
+			
+		}else if(action.equalsIgnoreCase("edit")){
 			forward = INSERT_OR_EDIT;
 			String sales_product_id = request.getParameter("sales_product_id");
 			SalesProduct sp = spdao.getSalesProductById(sales_product_id);
@@ -258,6 +275,11 @@ public class SalesProductController extends HttpServlet {
 			String sales_product_id = request.getParameter("sales_product_id");
 			SalesProduct sp = spdao.getSalesProductById(sales_product_id);
 			request.setAttribute("salesProduct", sp);
+		} else if(action.equalsIgnoreCase("partialReturnEnquiry")){
+			forward = ENQUIRY;
+			String sales_product_id = request.getParameter("sales_product_id");
+			SalesProduct sp = spdao.getSalesProductById(sales_product_id);
+			request.setAttribute("salesProduct", sp);
 		} else {
 			forward = INSERT_OR_EDIT;
 			// get value from Multi Requisition [S]
@@ -292,6 +314,14 @@ public class SalesProductController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("======action======="+ action);
+		// for partial return [S]
+		int returnQuantity = 0;
+		String strProduct = "";
+		if(action.equalsIgnoreCase("partialReturn")){
+			returnQuantity = Integer.parseInt(request.getParameter("return_quantity"));
+			strProduct = request.getParameter("product_id");
+		}
+		// for partial return [E]
 		
 		SalesProduct sp = new SalesProduct();
 		
@@ -335,12 +365,26 @@ public class SalesProductController extends HttpServlet {
 			spdao.update(sp);
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher(LIST_SALESPRODUCT);
+		// for partial return [S]
+		//RequestDispatcher rd = request.getRequestDispatcher(LIST_SALESPRODUCT);
+		RequestDispatcher rd = null;
+		if(action.equalsIgnoreCase("partialReturn")){
+			sp.setSales_product_id(sales_product_id);
+			spdao.update(sp);
+			rd = request.getRequestDispatcher(LIST_SALESPRODUCTPARTIALRETURN);
+		} else {
+			rd = request.getRequestDispatcher(LIST_SALESPRODUCT);
+		}
+		// for partial return [E]
+		
 		request.setAttribute("salesProducts", spdao.getAllSalesProductByMainIdDateTime(sales_id, requisition_id, strDateTime));
 		if(action.equalsIgnoreCase("save")){
 			message = "Data Inserted Successfully!!!";
 			request.setAttribute("success", message);
 		} else if(action.equalsIgnoreCase("edit")){
+			message = "Successfully Data Updated!!!";
+			request.setAttribute("success", message);
+		} else if(action.equalsIgnoreCase("partialReturn")){
 			message = "Successfully Data Updated!!!";
 			request.setAttribute("success", message);
 		}
@@ -362,6 +406,12 @@ public class SalesProductController extends HttpServlet {
 		// for insert into requisition_multi total_amount from Requisition Product sum total amount [S]
 		smmdao.sumTotalAmountSP(sales_id, requisition_id, strDateTime);
 		// for insert into requisition_multi total_amount from Requisition Product sum total amount [E]
+		
+		// for partial return [S]
+		if(action.equalsIgnoreCase("partialReturn")){
+			pdao.returnStockUpdate(strProduct, returnQuantity);
+		}
+		// for partial return [E]
 		
 		rd.forward(request, response);
 	}

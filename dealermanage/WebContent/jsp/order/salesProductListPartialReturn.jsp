@@ -43,44 +43,25 @@ function getRadioValue()
 	    }
 	}
 	
-	//for update [S]
-	var updatePathWithIdValue = "${pageContext.request.contextPath}/SalesProductController?action=edit&sales_product_id="+idValue;
-	//for update [E]
-	//for delete [S]
-	var deletePathWithIdValue = "${pageContext.request.contextPath}/SalesProductController?action=delete&sales_product_id="+idValue;
-	//for delete [E]
 	//for enquiry [S]
-	var enquiryPathWithIdValue = "${pageContext.request.contextPath}/SalesProductController?action=enquiry&sales_product_id="+idValue;
+	var enquiryPathWithIdValue = "${pageContext.request.contextPath}/SalesProductController?action=partialReturnEnquiry&sales_product_id="+idValue;
 	//for enquiry [E]
-	//for cancel [S]
-	var cancelPathWithIdValue = "${pageContext.request.contextPath}/SalesProductController?action=cancel&sales_product_id="+idValue;
-	//for cancel [E]
-	//for approve [S]
-	/* var approvePathWithIdValue = "${pageContext.request.contextPath}/SalesProductController?action=approve&sales_product_id="+idValue; */
-	//for approve [E]
 	//for delivery return [S]
-	/* var deliveryReturnPathWithIdValue = "${pageContext.request.contextPath}/SalesProductController?action=deliveryReturn&sales_product_id="+idValue; */
+	var deliveryReturnPathWithIdValue = "${pageContext.request.contextPath}/SalesProductController?action=deliveryReturn&sales_product_id="+idValue;
 	//for delivery return [E]
+	//for partial return [S]
+	var partialReturnPathWithIdValue = "${pageContext.request.contextPath}/SalesProductController?action=partialReturn&sales_product_id="+idValue;
+	//for partial return [E]
 	
 	if (idValue !=null) {
-		//for update [S]
-		document.getElementById('update').href = updatePathWithIdValue;
-		//for update [E]
-		//for delete [S]
-		document.getElementById('delete').href = deletePathWithIdValue;
-		//for delete [E]
 		//for enquiry [S]
-		document.getElementById('enquiry').href = enquiryPathWithIdValue;
+		document.getElementById('partialReturnEnquiry').href = enquiryPathWithIdValue;
 		//for enquiry [E]
-		//for cancel [S]
-		document.getElementById('cancel').href = cancelPathWithIdValue;
-		//for cancel [E]
-		//for approve [S]
-		/* document.getElementById('approve').href = approvePathWithIdValue; */
-		//for approve [E]
-		//for delivery return [S]
-		/* document.getElementById('deliveryReturn').href = deliveryReturnPathWithIdValue; */
+		document.getElementById('deliveryReturn').href = deliveryReturnPathWithIdValue;
 		//for delivery return [E]
+		//for partial return [S]
+		document.getElementById('partialReturn').href = partialReturnPathWithIdValue;
+		//for partial return [E]
 	} else {
 		alert("Please select a ID !!");
 		return false;
@@ -109,9 +90,9 @@ String message = (String) request.getAttribute("success");
 <div class="mcontent">
 			<div class="titlenav">
 			<ul>
-					<li class="title"><a href="${pageContext.request.contextPath}/jsp/order/salesProduct.jsp">Sales Product List</a></li>
+					<li class="title"><a href="">Sales Product List for Partial Return</a></li>
 					<li class="bread"><a href="">Dashboard > Order 
-							Management > Sales List > Sales Product List</a></li>
+							Management > Sales List > Sales Product List for Partial Return</a></li>
 				</ul>
 			</div>
 			<br>
@@ -123,7 +104,6 @@ String message = (String) request.getAttribute("success");
 			<td Class ="FormCellColor">Requisition ID</td>
 			<td Class ="FormInputColor" colspan="2"><c:out value="${requisition_id}" /></td>
 			<td Class ="FormCellColor">DateTime</td>
-			<%-- <td Class ="FormInputColor" colspan="2"><c:out value="${strDateTime}" /></td> --%>
 			<td Class ="FormInputColor" colspan="2">
 				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${strDateTime}" var="parsedDate" />
 				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
@@ -230,15 +210,9 @@ String message = (String) request.getAttribute("success");
 				<tr>
 					<td><hr align=left width="100%" color=#003399>
 					<br>
-					<a Class ="button" href="${pageContext.request.contextPath}/SalesProductController?action=save">add</a>
-					<a id="update" Class ="button" href="" onclick="javascript: getRadioValue();">update</a>
-					<!-- <a id="approve" Class ="button" href="" onclick="javascript: getRadioValue();">approve</a> -->
-					<a id="cancel" Class ="button" href="" onclick="javascript: getRadioValue();">cancel</a>
-					<a id="delete" Class ="button" href="" onclick="javascript: getRadioValue();">delete</a>
-					<a id="enquiry" Class ="button" href="" onclick="javascript: getRadioValue();">enquiry</a>
-					<!-- <a id="deliveryReturn" Class ="button" href="" onclick="javascript: getRadioValue();">Delivery Return</a> -->
-					<%-- <a Class ="button" href="${pageContext.request.contextPath}/requisitionMulti.jsp">Return</a></td> --%>
-					<%-- <a Class ="button" href="${pageContext.request.contextPath}/SalesMainController?action=salesMainList&sales_id=${sales_id}&customer_name=${customer_name}&mobile=${mobile}">Return</a></td> --%>
+					<a id="partialReturnEnquiry" Class ="button" href="" onclick="javascript: getRadioValue();">enquiry</a>
+					<a id="deliveryReturn" Class ="button" href="" onclick="javascript: getRadioValue();">Delivery Return</a>
+					<a id="partialReturn" Class ="button" href="" onclick="javascript: getRadioValue();">Partial Return</a>
 					<a Class ="button" href="${pageContext.request.contextPath}/jsp/order/salesMain.jsp">Return</a></td>
 				</tr>
 	</table>
