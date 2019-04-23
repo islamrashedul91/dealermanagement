@@ -297,7 +297,13 @@ public class PurchaseMainController extends HttpServlet {
 				
 				ppdao.deliveryReturnByMainPurchase(purchase_id, date_time);
 				
-				tmdao.purchaseMainToTransactionMain(purchase_id, date_time);
+				//tmdao.purchaseMainToTransactionMain(purchase_id, date_time);
+				String strTransactionID = tmdao.getTransactionMainByIdDateTime(purchase_id, date_time).getTransaction_id();
+				if(strTransactionID == null || strTransactionID.equals("")){
+					tmdao.purchaseMainToTransactionMain(purchase_id, date_time);
+				} else if(strTransactionID != null && !strTransactionID.equals("")){
+					tmdao.returnTotalAmount(purchase_id, date_time);
+				}
 				
 				ppdao.getPurchaseProductToTransactionProduct(purchase_id, date_time);
 				/*ctmdao.salesMainToCustomerTransactionMain(purchase_id, date_time);

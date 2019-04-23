@@ -173,7 +173,7 @@ public class PurchaseProductController extends HttpServlet {
 				
 				ppdao.deliveryReturnByPurchaseProduct(purchase_product_id, strPurchaseId, date_time);
 				
-				String strTransactionID = ctmdao.getCustomerTransactionMainByIdDateTime(strPurchaseId, date_time).getTransaction_id();
+				String strTransactionID = tmdao.getTransactionMainByIdDateTime(strPurchaseId, date_time).getTransaction_id();
 				if(strTransactionID == null || strTransactionID.equals("")){
 					tmdao.productPurchaseMainToTransactionMain(strPurchaseId, date_time);
 				} else if(strTransactionID != null && !strTransactionID.equals("")){
@@ -183,6 +183,7 @@ public class PurchaseProductController extends HttpServlet {
 				
 				//spdao.getSalesProductToCustomerTransactionProduct(strRequisition, date_time);
 				/*ppdao.purchaseProductToTransactionProduct(purchase_product_id, strPurchaseId, date_time);*/
+				ppdao.purchaseProductToTransactionProduct(purchase_product_id, strPurchaseId, date_time);
 				
 				//spdao.getProdcutIdForStockUpdate(strRequisition, date_time);
 				/*pdao.returnStockUpdate(strProduct, intOrderQuantity);*/
