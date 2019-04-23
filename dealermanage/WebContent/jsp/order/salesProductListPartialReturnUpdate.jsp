@@ -210,15 +210,15 @@ String strDate = formatter.format(date);
 				</select>
 			</label>
 			
+			<label for="field13"><span>Bonus Name </span>
+				<input type="text" class="input-field-60" readonly="readonly" name="bonus_name" id="bonus_name" value="${salesProduct.bonus_name}"  maxlength=40 size=40 /> 
+			</label>
+			
 			</div>
 			
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			
 			<div class="square-44">
-			
-			<label for="field13"><span>Bonus Name </span>
-				<input type="text" class="input-field-60" readonly="readonly" name="bonus_name" id="bonus_name" value="${salesProduct.bonus_name}"  maxlength=40 size=40 /> 
-			</label>
 			
 			<label for="field14"><span>Order Pack </span>
 				<input type="text" class="input-field-60" readonly="readonly" name="order_pack" id="order_pack" value="${salesProduct.order_pack}"  maxlength=40 size=40 /> 
@@ -228,27 +228,27 @@ String strDate = formatter.format(date);
 				<input type="text" class="input-field-60" readonly="readonly" name="order_quantity" id="order_quantity" value="${salesProduct.order_quantity}" onchange="quantityToTotalMRP(); discountToTotalAmount();" maxlength=10 size=40 required /> 
 			</label>
 			
-			<label for="field15"><span>Return Quantity <span class="required">*</span></span>
+			<label for="field16"><span>Return Quantity <span class="required">*</span></span>
 				<input type="text" class="input-field-60" name="return_quantity" id="return_quantity" value="" onchange="returnQuantityToOrderQuantity();quantityToTotalMRP(); discountToTotalAmount();" maxlength=10 size=40 required /> 
 			</label>
 			
-			<label for="field16"><span>MRP <span class="required">*</span></span>
+			<label for="field17"><span>MRP <span class="required">*</span></span>
 				<input type="text" class="input-field-60" readonly="readonly" name="mrp_price" id="mrp_price" value="${salesProduct.mrp_price}" maxlength=10 size=40 required /> 
 			</label>
 			
-			<label for="field17"><span>Total MRP BDT.<span class="required">*</span></span>
+			<label for="field18"><span>Total MRP BDT.<span class="required">*</span></span>
 				<input type="text" class="input-field-60" readonly="readonly" name="total_mrp_price" id="total_mrp_price" value="${salesProduct.total_mrp_price}" maxlength=10 size=40 required /> 
 			</label>
 			
-			<label for="field18"><span>Discount Amount <span class="required">*</span></span>
+			<label for="field19"><span>Discount Amount <span class="required">*</span></span>
 				<input type="text" class="input-field-60" readonly="readonly" name="discount_amt" id="discount_amt" value="${salesProduct.discount_amt}" onchange="discountToTotalAmount();" maxlength=10 size=40 required /> 
 			</label>
 			
-			<label for="field19"><span>Total Amount BDT. <span class="required">*</span></span>
+			<label for="field20"><span>Total Amount BDT. <span class="required">*</span></span>
 				<input type="text" class="input-field-60" readonly="readonly" name="total_amount" id="total_amount" value="${salesProduct.total_amount}"  maxlength=10 size=40 required /> 
 			</label>
 			
-			<label for="field20"><span>Order Status </span>
+			<label for="field21"><span>Order Status </span>
 				<select name="order_status" id="order_status" class="select-field-60" readonly="readonly" >
 					<option value="" >Select one</option>
 					<option value="P" ${salesProduct.order_status == 'P' ? 'selected="selected"' : ''}>Pending</option>
@@ -258,7 +258,7 @@ String strDate = formatter.format(date);
 				</select> 
 			</label>
 			
-			<label for="field21"><span>Delivery Status </span>
+			<label for="field22"><span>Delivery Status </span>
 				<select name="delivery_status" id="delivery_status" class="select-field-60" >
 					<option value="" >Select one</option>
 					<option value="P" ${salesProduct.delivery_status == 'P' ? 'selected="selected"' : ''}>Pending</option>
@@ -269,7 +269,7 @@ String strDate = formatter.format(date);
 				</select> 
 			</label>
 			
-			<label for="field22"><span>Created <span class="required">*</span></span>
+			<label for="field23"><span>Created <span class="required">*</span></span>
 				<!-- just display fancy date only [S]-->
 				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${salesProduct.created}" var="parsedDate" />
 				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" var="fmtDate" />
@@ -278,7 +278,7 @@ String strDate = formatter.format(date);
 				<input type="hidden" class="input-field-60" readonly="readonly" name="created" id="created" value="${salesProduct.created}"  maxlength=14 size=40 required /> 
 			</label>
 			
-			<label for="field23"><span>Updated <span class="required">*</span></span>
+			<label for="field24"><span>Updated <span class="required">*</span></span>
 				<!-- just display fancy date only [S]-->
 				<fmt:parseDate pattern="yyyyMMddHHmmss" value="<%=strDate%>" var="parsedDate" />
 				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" var="fmtDate" />
@@ -287,15 +287,11 @@ String strDate = formatter.format(date);
 				<input type="hidden" class="input-field-60" readonly="readonly" name="updated" id="updated" value="<%=strDate%>"  maxlength=14 size=40 required /> 
 			</label>
 			
-			<label for="field24"><span>Created By </span>
+			<label for="field25"><span>Created By </span>
 				<input type="text" class="input-field-60" readonly="readonly" name="created_by" id="created_by" value="${salesProduct.created_by}"  maxlength=40 size=40 /> 
 			</label>
 			
-			</div>
-			
-			<div class="square-44">
-			
-			<label for="field25"><span>Updated By </span>
+			<label for="field26"><span>Updated By </span>
 				<input type="text" class="input-field-60" readonly="readonly" name="updated_by" id="updated_by" value="${salesProduct.updated_by}"  maxlength=40 size=40 /> 
 			</label>
 			

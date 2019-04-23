@@ -49,6 +49,7 @@ public class PurchaseMainController extends HttpServlet {
 	
 	private static String LIST_PURCHASEPRODUCT = "/jsp/order/purchaseProductList.jsp";
 	private static String LIST_PURCHASEPRODUCTENQUIRY = "/jsp/order/purchaseProductListEnquiry.jsp";
+	private static String LIST_PURCHASEPRODUCTPARTIALRETURN = "/jsp/order/purchaseProductListPartialReturn.jsp";
 	
 	private RequisitionMultiDAO rmdao;
 	private RequisitionProductDAO rpdao;
@@ -346,6 +347,49 @@ public class PurchaseMainController extends HttpServlet {
 			}
 			forward=LIST_PURCHASEMAIN;
 			request.setAttribute("purchaseMains", pmdao.getAllPurchaseMain());
+		} else if(action.equalsIgnoreCase("partialReturn")){
+			String purchase_id = request.getParameter("purchase_id");
+			String strPurchaseType = pmdao.getSelectedOtherID(purchase_id).getPurchase_type();
+			String strOrderStatus = pmdao.getSelectedOtherID(purchase_id).getOrder_status();
+			String strDeliveryStatus = pmdao.getSelectedOtherID(purchase_id).getDelivery_status();
+			String date_time = pmdao.getSelectedOtherID(purchase_id).getDate_time();
+			String strFromAccount = pmdao.getSelectedOtherID(purchase_id).getFrom_account_id();
+			String strToAccount = pmdao.getSelectedOtherID(purchase_id).getTo_account_id();
+			double doubleTotalAmount = pmdao.getSelectedOtherID(purchase_id).getTotal_amount();
+			String owner_name = pmdao.getSelectedOtherID(purchase_id).getOwner_name();
+			String mobile = pmdao.getSelectedOtherID(purchase_id).getMobile();
+			
+			if (strOrderStatus.equals("A") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
+				forward=LIST_PURCHASEPRODUCTPARTIALRETURN;
+				request.setAttribute("purchaseProducts", ppdao.getAllPurchaseProductByMainIdDateTime(purchase_id, date_time));
+				
+				request.setAttribute("purchase_id", purchase_id);
+				request.setAttribute("purchase_type", strPurchaseType);
+				request.setAttribute("strDateTime", date_time);
+				request.setAttribute("owner_name", owner_name);
+				request.setAttribute("mobile", mobile);
+				request.setAttribute("sumTotalAmount", ppdao.sumTotalAmount(purchase_id, date_time).getTotal_amount());
+			} else {
+				if (strOrderStatus.equals("C")) {
+					message = "Purchase Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("P")) {
+					message = "Without Approve Purchase can not be Delivered !!!";
+					request.setAttribute("success", message);
+				} else if (strDeliveryStatus.equals("C")) {
+					message = "Delivery Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A") && strDeliveryStatus.equals("D")) {
+					message = "Already Delivered !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A") && strDeliveryStatus.equals("R")) {
+					message = "Already Return !!!";
+					request.setAttribute("success", message);
+				}
+				forward=LIST_PURCHASEMAIN;
+				request.setAttribute("purchaseMains", pmdao.getAllPurchaseMain());
+			}
+			
 		} else if(action.equalsIgnoreCase("edit")){
 			forward = INSERT_OR_EDIT;
 			String purchase_id = request.getParameter("purchase_id");

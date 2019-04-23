@@ -560,6 +560,11 @@ public class PurchaseMainDAO {
 				purchase_id = Integer.parseInt(strPurchaseMain2.replaceAll("[^0-9]", ""));
 				purchase_id = purchase_id+1;
 				pm.setPurchase_id("PRCH" + String.valueOf(purchase_id));
+			} else if (purchase_id == purchase_id2) {
+				String strPurchaseMain = rs.getString("purchase_id");
+				purchase_id = Integer.parseInt(strPurchaseMain.replaceAll("[^0-9]", ""));
+				purchase_id = purchase_id+1;
+				pm.setPurchase_id("PRCH" + String.valueOf(purchase_id));
 			} 
 			// for get deleted id [E]
 			
@@ -613,7 +618,7 @@ public class PurchaseMainDAO {
 		
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("SELECT purchase_id, purchase_type, date_time, owner_id, company_id, order_status, delivery_status, total_amount, from_account_id, to_account_id FROM purchase_main WHERE purchase_id=?");
+			ps = con.prepareStatement("SELECT purchase_id, purchase_type, date_time, owner_id, company_id, order_status, delivery_status, total_amount, from_account_id, to_account_id, owner_name, mobile FROM purchase_main WHERE purchase_id=?");
 			
 			ps.setString(1, purchase_id);
 			
@@ -631,6 +636,8 @@ public class PurchaseMainDAO {
 				String strToAccount = rs.getString("to_account_id");
 				String strOrderStatus = rs.getString("order_status");
 				String strDeliveryStatus = rs.getString("delivery_status");
+				String strOwnerName = rs.getString("owner_name");
+				String strMobile = rs.getString("mobile");
 				
 				pm.setPurchase_id(strPurchaseMain);
 				pm.setPurchase_type(strPurchaseType);
@@ -642,6 +649,8 @@ public class PurchaseMainDAO {
 				pm.setTo_account_id(strToAccount);
 				pm.setOrder_status(strOrderStatus);
 				pm.setDelivery_status(strDeliveryStatus);
+				pm.setOwner_name(strOwnerName);
+				pm.setMobile(strMobile);
 				
 			}
 			

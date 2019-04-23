@@ -29,7 +29,6 @@ import com.rashed.pharmacy.model.SalesmanInfo;
 import com.rashed.pharmacy.dao.SalesmanInfoDAO;
 import com.rashed.pharmacy.model.SalesMain;
 import com.rashed.pharmacy.dao.SalesMainDAO;
-
 import com.rashed.pharmacy.model.PurchaseMain;
 import com.rashed.pharmacy.dao.PurchaseMainDAO;
 import com.rashed.pharmacy.model.PurchaseProduct;
@@ -42,6 +41,8 @@ public class PurchaseProductController extends HttpServlet {
 	private static String INSERT_OR_EDIT = "/jsp/order/purchaseProductAdd.jsp";
 	private static String LIST_PURCHASEPRODUCT = "/jsp/order/purchaseProductList.jsp";
 	private static String ENQUIRY = "/jsp/order/purchaseProductEnquiry.jsp";
+	private static String LIST_PURCHASEPRODUCTPARTIALRETURN = "/jsp/order/purchaseProductListPartialReturn.jsp";
+	private static String LIST_PURCHASEPRODUCTPARTIALRETURNUPDATE = "/jsp/order/purchaseProductListPartialReturnUpdate.jsp";
 	
 	private RequisitionProductDAO rpdao;
 	private ProductDAO pdao;
@@ -168,7 +169,7 @@ public class PurchaseProductController extends HttpServlet {
 			String date_time = ppdao.getSelectedOtherID(purchase_product_id).getDate_time();
 			double doubleTotalAmount = ppdao.getSelectedOtherID(purchase_product_id).getTotal_amount();
 			
-			if (strOrderStatus.equals("S") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
+			if (strOrderStatus.equals("A") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
 				
 				ppdao.deliveryReturnByPurchaseProduct(purchase_product_id, strPurchaseId, date_time);
 				
@@ -207,15 +208,16 @@ public class PurchaseProductController extends HttpServlet {
 				} else if (strDeliveryStatus.equals("C")) {
 					message = "Delivery Already Cancelled !!!";
 					request.setAttribute("success", message);
-				} else if (strOrderStatus.equals("S") && strDeliveryStatus.equals("D")) {
+				} else if (strOrderStatus.equals("A") && strDeliveryStatus.equals("D")) {
 					message = "Already Delivered !!!";
 					request.setAttribute("success", message);
-				} else if (strOrderStatus.equals("S") && strDeliveryStatus.equals("R")) {
+				} else if (strOrderStatus.equals("A") && strDeliveryStatus.equals("R")) {
 					message = "Already Return !!!";
 					request.setAttribute("success", message);
 				}
 			}
-			forward=LIST_PURCHASEPRODUCT;
+			//forward=LIST_PURCHASEPRODUCT;
+			forward=LIST_PURCHASEPRODUCTPARTIALRETURN;
 
 			request.setAttribute("purchaseProducts", ppdao.getAllPurchaseProductByMainIdDateTime(strPurchaseId, date_time));
 			
@@ -228,6 +230,20 @@ public class PurchaseProductController extends HttpServlet {
 			request.setAttribute("sumTotalAmount", ppdao.sumTotalAmount(strPurchaseId, date_time).getTotal_amount());
 			
 			pmdao.sumTotalAmountPP(strPurchaseId, date_time);
+			
+		} else if(action.equalsIgnoreCase("partialReturn")){
+			forward = LIST_PURCHASEPRODUCTPARTIALRETURNUPDATE;
+			String purchase_product_id = request.getParameter("purchase_product_id");
+			PurchaseProduct pp = ppdao.getPurchaseProductById(purchase_product_id);
+			request.setAttribute("purchaseProduct", pp);
+			// for get all the Product_id when update requisition [S]
+			request.setAttribute("allProduct", pdao.getAllProduct());
+			// for get all the Product_id when update requisition [E]
+			
+			// selected other respective id during update [S]
+			request.setAttribute("selectedProductId", ppdao.getSelectedOtherID(purchase_product_id).getProduct_id());
+			request.setAttribute("selectedBonusId", ppdao.getSelectedOtherID(purchase_product_id).getBonus_id());
+			// selected other respective id during update [E]
 			
 		} else if(action.equalsIgnoreCase("edit")){
 			forward = INSERT_OR_EDIT;
@@ -266,6 +282,11 @@ public class PurchaseProductController extends HttpServlet {
 			PurchaseProduct pp = ppdao.getPurchaseProductById(purchase_product_id);
 			request.setAttribute("purchaseProduct", pp);
 		} else if(action.equalsIgnoreCase("enquiryEnquiry")){
+			forward = ENQUIRY;
+			String purchase_product_id = request.getParameter("purchase_product_id");
+			PurchaseProduct pp = ppdao.getPurchaseProductById(purchase_product_id);
+			request.setAttribute("purchaseProduct", pp);
+		} else if(action.equalsIgnoreCase("partialReturnEnquiry")){
 			forward = ENQUIRY;
 			String purchase_product_id = request.getParameter("purchase_product_id");
 			PurchaseProduct pp = ppdao.getPurchaseProductById(purchase_product_id);
@@ -342,12 +363,26 @@ public class PurchaseProductController extends HttpServlet {
 			ppdao.update(pp);
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher(LIST_PURCHASEPRODUCT);
+		// for partial return [S]
+		//RequestDispatcher rd = request.getRequestDispatcher(LIST_PURCHASEPRODUCT);
+		RequestDispatcher rd = null;
+		if(action.equalsIgnoreCase("partialReturn")){
+			pp.setPurchase_product_id(purchase_product_id);
+			ppdao.update(pp);
+			rd = request.getRequestDispatcher(LIST_PURCHASEPRODUCTPARTIALRETURN);
+		} else {
+			rd = request.getRequestDispatcher(LIST_PURCHASEPRODUCT);
+		}
+		// for partial return [S]
+		
 		request.setAttribute("purchaseProducts", ppdao.getAllPurchaseProductByMainIdDateTime(purchase_id, strDateTime));
 		if(action.equalsIgnoreCase("save")){
 			message = "Data Inserted Successfully!!!";
 			request.setAttribute("success", message);
 		} else if(action.equalsIgnoreCase("edit")){
+			message = "Successfully Data Updated!!!";
+			request.setAttribute("success", message);
+		} else if(action.equalsIgnoreCase("partialReturn")){
 			message = "Successfully Data Updated!!!";
 			request.setAttribute("success", message);
 		}

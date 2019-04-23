@@ -136,6 +136,10 @@
 						%>
 						<a Class ="button" href="${pageContext.request.contextPath}/PurchaseMainController?action=purchaseProductListEnquiry&purchase_id=${purchaseProduct.purchase_id}&date_time=${purchaseProduct.date_time}&owner_name=${owner_name}&mobile=${mobile}">Return</a></td>
 						<%
+						} else if (action.equalsIgnoreCase("partialReturnEnquiry")) {
+						%>
+						<a Class ="button" href="${pageContext.request.contextPath}/PurchaseMainController?action=partialReturn&purchase_id=${purchaseProduct.purchase_id}&date_time=${purchaseProduct.date_time}&owner_name=${owner_name}&mobile=${mobile}">Return</a></td>
+						<%
 						} else {
 						%>
 						<a Class ="button" href="${pageContext.request.contextPath}/PurchaseMainController?action=return&purchase_id=${purchaseProduct.purchase_id}&date_time=${purchaseProduct.date_time}&owner_name=${owner_name}&mobile=${mobile}">Return</a></td>

@@ -78,6 +78,9 @@ function getRadioValue()
 	//for delivery return [S]
 	var deliveryReturnPathWithIdValue = "${pageContext.request.contextPath}/PurchaseMainController?action=deliveryReturn&purchase_id="+idValue;
 	//for delivery return [E]
+	//for partial return [S]
+	var partialReturnPathWithIdValue = "${pageContext.request.contextPath}/PurchaseMainController?action=partialReturn&purchase_id="+idValue;
+	//for partial return [E]
 	
 	if (idValue !=null) {
 		//for update [S]
@@ -101,6 +104,9 @@ function getRadioValue()
 		//for delivery return [S]
 		document.getElementById('deliveryReturn').href = deliveryReturnPathWithIdValue;
 		//for delivery return [E]
+		//for partial return [S]
+		document.getElementById('partialReturn').href = partialReturnPathWithIdValue;
+		//for partial return [E]
 	} else {
 		alert("Please select a ID !!");
 		return false;
@@ -197,6 +203,7 @@ String message = (String) request.getAttribute("success");
 					<a id="delete" Class ="button" href="" onclick="javascript: getRadioValue();">delete</a>
 					<a id="enquiry" Class ="button" href="" onclick="javascript: getRadioValue();">enquiry</a>
 					<a id="deliveryReturn" Class ="button" href="" onclick="javascript: getRadioValue();">Delivery Return</a>
+					<a id="partialReturn" Class ="button" href="" onclick="javascript: getRadioValue();">Partial Return</a>
 					<a Class ="button" href="${pageContext.request.contextPath}/base.jsp">Return</a></td>
 				</tr>
 	</table>
