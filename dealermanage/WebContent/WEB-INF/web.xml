@@ -464,4 +464,17 @@
   </servlet-mapping>
   <!-- for Expense Product [E] -->
   
+  <!-- Sales Rate [S] -->
+  <servlet>
+    <description></description>
+    <display-name>SalesRateController</display-name>
+    <servlet-name>SalesRateController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.SalesRateController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SalesRateController</servlet-name>
+    <url-pattern>/SalesRateController</url-pattern>
+  </servlet-mapping>
+  <!-- Sales Rate [E] -->
+  
 </web-app>

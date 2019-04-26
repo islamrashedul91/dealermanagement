@@ -169,7 +169,11 @@ function totalMrpPriceToMrpPrice() {
 function mrpPriceToTpPrice() {
 	
 	var mrpPrice = document.getElementById('mrp_price').value;
-	var price6 = (mrpPrice * 6) / 100;
+	// sales_rate from config file [S]
+	//var price6 = (mrpPrice * 6) / 100;
+	var sales_rate = document.getElementById('sales_rate').value;
+	var price6 = (mrpPrice*1 * sales_rate) / 100;
+	// sales_rate from config file [E]
 	var tpPrice = mrpPrice - price6;
 	
 	document.getElementById('tp_price').value = tpPrice.toFixed(2);
@@ -179,7 +183,11 @@ function mrpPriceToTpPrice() {
 function tpPriceToMrpPrice() {
 	
 	var tpPrice = document.getElementById('tp_price').value;
-	var price6 = (tpPrice * 6) / 100;
+	// sales_rate from config file [S]
+	//var price6 = (tpPrice * 6) / 100;
+	var sales_rate = document.getElementById('sales_rate').value;
+	var price6 = (tpPrice*1 * sales_rate) / 100;
+	// sales_rate from config file [E]
 	//var mrpPrice = tpPrice + price6; // not working that's why write below code
 	var mrpPrice = (tpPrice*1) + (price6*1);
 	
@@ -190,7 +198,11 @@ function tpPriceToMrpPrice() {
 function totalMrpPriceToTotalTpPrice() {
 	
 	var totalMrpPrice = document.getElementById('total_mrp_price').value;
-	var price6 = (totalMrpPrice * 6) / 100;
+	// sales_rate from config file [S]
+	//var price6 = (totalMrpPrice * 6) / 100;
+	var sales_rate = document.getElementById('sales_rate').value;
+	var price6 = (totalMrpPrice*1 * sales_rate) / 100;
+	// sales_rate from config file [E]
 	var totalTpPrice = totalMrpPrice - price6;
 	
 	document.getElementById('total_tp_price').value = totalTpPrice.toFixed(2);
@@ -200,7 +212,11 @@ function totalMrpPriceToTotalTpPrice() {
 function totalTpPriceToTotalMrpPrice() {
 	
 	var totalTpPrice = document.getElementById('total_tp_price').value;
-	var price6 = (totalTpPrice * 6) / 100;
+	// sales_rate from config file [S]
+	//var price6 = (totalTpPrice * 6) / 100;
+	var sales_rate = document.getElementById('sales_rate').value;
+	var price6 = (totalTpPrice*1 * sales_rate) / 100;
+	// sales_rate from config file [E]
 	//var totalMrpPrice = totalTpPrice + price6; // not working that's why write below code
 	var totalMrpPrice = (totalTpPrice*1) + (price6*1);
 	
@@ -576,6 +592,9 @@ String selectedPackPicecesId = (String) request.getAttribute("selectedPackPicece
 			}
 			%>
 			</div>
+			<!-- set sales rate [S] -->
+			<input type="text" class="input-field-60" name="sales_rate" id="sales_rate" value="${sales_rate}" />
+			<!-- set sales rate [E] -->
 			<br><br>
 			<label><span></span>
 					<input type="submit" value="Submit" />

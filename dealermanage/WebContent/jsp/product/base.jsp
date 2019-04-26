@@ -57,6 +57,7 @@
 					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/packPiceces.jsp">&nbsp;Pack Pieces</a>
 					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/productType.jsp">&nbsp;Product Type</a>
 					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/brand.jsp">&nbsp;Brand</a>
+					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/salesRate.jsp">&nbsp;Sales Rate</a>
 					<a id="submenu" href="${pageContext.request.contextPath}/jsp/product/product.jsp">&nbsp;Product</a>
 				</div>
 				

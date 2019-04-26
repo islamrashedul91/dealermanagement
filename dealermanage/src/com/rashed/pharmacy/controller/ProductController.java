@@ -23,6 +23,7 @@ import com.rashed.pharmacy.model.ProductType;
 import com.rashed.pharmacy.dao.ProductTypeDAO;
 import com.rashed.pharmacy.model.Product;
 import com.rashed.pharmacy.dao.ProductDAO;
+import com.rashed.pharmacy.dao.SalesRateDAO;
 import com.rashed.pharmacy.util.*;
 
 public class ProductController extends HttpServlet {
@@ -39,6 +40,7 @@ public class ProductController extends HttpServlet {
 	private ProductTypeDAO ptdao;
 	private CompanyDAO cdao;
 	private ProductDAO pdao;
+	SalesRateDAO srdao;
 	
 	String action = "";
 	String message = "";
@@ -53,6 +55,7 @@ public class ProductController extends HttpServlet {
         ptdao = new ProductTypeDAO();
         cdao = new CompanyDAO();
         pdao = new ProductDAO();
+        srdao = new SalesRateDAO();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -102,6 +105,9 @@ public class ProductController extends HttpServlet {
 			request.setAttribute("selectedPackPicecesId", pdao.getSelectedOtherID(product_id).getPack_piceces_id());
 			request.setAttribute("selectedCompanyId", pdao.getSelectedOtherID(product_id).getCompany_id());
 			// selected other respective id during update [E]
+			// set sales rate [S]
+			request.setAttribute("sales_rate", srdao.getSelectedOtherID().getRate_percent());
+			// set sales rate [E]
 		} else if(action.equalsIgnoreCase("productList")){
 			forward = LIST_PRODUCT;
 			request.setAttribute("products", pdao.getAllProduct());
@@ -145,6 +151,9 @@ public class ProductController extends HttpServlet {
 			// generated auto increment id during add [S]
 			request.setAttribute("productId", pdao.getProductID().getProduct_id());
 			// generated auto increment id during add [E]
+			// set sales rate [S]
+			request.setAttribute("sales_rate", srdao.getSelectedOtherID().getRate_percent());
+			// set sales rate [E]
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
