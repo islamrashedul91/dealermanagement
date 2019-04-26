@@ -281,7 +281,13 @@ public class SalesMainController extends HttpServlet {
 				
 				spdao.deliveryReturnByMainSales(sales_id, strRequisition, date_time);
 				
-				ctmdao.salesMainToCustomerTransactionMain(strRequisition, date_time);
+				//ctmdao.salesMainToCustomerTransactionMain(strRequisition, date_time);
+				String strTransactionID = ctmdao.getCustomerTransactionMainByIdDateTime(strRequisition, date_time).getTransaction_id();
+				if(strTransactionID == null || strTransactionID.equals("")){
+					ctmdao.salesMainToCustomerTransactionMain(strRequisition, date_time);
+				} else if(strTransactionID != null && !strTransactionID.equals("")){
+					ctmdao.returnTotalAmount(strRequisition, date_time);
+				}
 				
 				spdao.getSalesProductToCustomerTransactionProduct(strRequisition, date_time);
 				
