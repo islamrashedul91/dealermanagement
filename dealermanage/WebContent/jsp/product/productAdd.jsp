@@ -601,7 +601,7 @@ String selectedPackPicecesId = (String) request.getAttribute("selectedPackPicece
 			%>
 			</div>
 			<!-- set sales rate [S] -->
-			<input type="text" class="input-field-60" name="sales_rate" id="sales_rate" value="${sales_rate}" />
+			<input type="hidden" class="input-field-60" name="sales_rate" id="sales_rate" value="${sales_rate}" />
 			<!-- set sales rate [E] -->
 			<br><br>
 			<label><span></span>
