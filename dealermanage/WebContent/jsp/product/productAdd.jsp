@@ -224,6 +224,14 @@ function totalTpPriceToTotalMrpPrice() {
 
 }
 
+function checkSalesRate() {
+	var sales_rate = document.getElementById('sales_rate').value;
+	if (sales_rate == 0.0){
+		alert("Sales Rate can not be zero, Please insert sales rate");
+		return false;
+	}
+}
+
 </script>
 
 </head>
@@ -276,7 +284,7 @@ String selectedProductCategoryId = (String) request.getAttribute("selectedProduc
 String selectedGenericId = (String) request.getAttribute("selectedGenericId");
 String selectedPackPicecesId = (String) request.getAttribute("selectedPackPicecesId"); */
 %>	
-	<form action="ProductController" method="post" name="frmSave">
+	<form action="ProductController" method="post" name="frmSave" onsubmit="return checkSalesRate()">
 		<div class="form-style-2-heading">Provide your information</div>
 			<div class="square-44">
 			<%
