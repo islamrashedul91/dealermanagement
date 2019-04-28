@@ -506,5 +506,49 @@ public class OwnerInfoDAO {
 		}
 		return status;
 	}
+	
+	// change password [S]
+	public void changePassword(OwnerInfo oi){
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			con  = DbUtil.getConnection();
+			
+			ps = con.prepareStatement("UPDATE owner_info set updated=?, password=? where mobile=?");
+			
+			ps.setString(1, oi.getUpdated());
+			ps.setString(2, oi.getPassword());
+			ps.setString(3, oi.getMobile());
+			
+			ps.executeUpdate();		
+			
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(ps != null){
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	// change password [E]
 
 }

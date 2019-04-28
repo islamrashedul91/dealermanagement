@@ -489,4 +489,17 @@
   </servlet-mapping>
   <!-- for Login [E] -->
   
+  <!-- Password Change [S] -->
+  <servlet>
+    <description></description>
+    <display-name>PasswordChangeController</display-name>
+    <servlet-name>PasswordChangeController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.PasswordChangeController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PasswordChangeController</servlet-name>
+    <url-pattern>/PasswordChangeController</url-pattern>
+  </servlet-mapping>
+  <!-- Password Change [E] -->
+  
 </web-app>
