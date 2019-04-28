@@ -2,9 +2,8 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>onlinep</display-name>
   <welcome-file-list>
-    <!-- <welcome-file>/jsp/customer/customerInfoList.jsp</welcome-file> -->
-    <welcome-file>base.jsp</welcome-file>
-    <!-- <welcome-file>guestProduct.jsp</welcome-file> -->
+    <!-- <welcome-file>base.jsp</welcome-file> -->
+    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   
   <session-config>
@@ -476,5 +475,18 @@
     <url-pattern>/SalesRateController</url-pattern>
   </servlet-mapping>
   <!-- Sales Rate [E] -->
+  
+  <!-- for Login [S] -->
+  <servlet>
+    <description></description>
+    <display-name>LoginController</display-name>
+    <servlet-name>LoginController</servlet-name>
+    <servlet-class>com.rashed.pharmacy.controller.LoginController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginController</servlet-name>
+    <url-pattern>/LoginController</url-pattern>
+  </servlet-mapping>
+  <!-- for Login [E] -->
   
 </web-app>

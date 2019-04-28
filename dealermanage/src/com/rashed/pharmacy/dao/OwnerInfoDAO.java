@@ -335,6 +335,71 @@ public class OwnerInfoDAO {
 		return oi;
 	}
 	
+	public OwnerInfo getOwnerInfoByMobile(String mobile){
+		OwnerInfo oi = new OwnerInfo();
+		
+		try{
+			con  = DbUtil.getConnection();
+			ps = con.prepareStatement("SELECT owner_id, owner_name, description, owner_type, owner_start_date, "
+					+ "father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, "
+					+ "password, status, created, updated FROM owner_info where mobile=?");
+			
+			ps.setString(1, mobile);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()){
+				oi.setOwner_id(rs.getString(1));
+				oi.setOwner_name(rs.getString(2));
+				oi.setDescription(rs.getString(3));
+				oi.setOwner_type(rs.getString(4));
+				oi.setOwner_start_date(rs.getString(5));
+				oi.setFather_name(rs.getString(6));
+				oi.setMother_name(rs.getString(7));
+				oi.setNid(rs.getString(8));
+				oi.setDob(rs.getString(9));
+				oi.setOccupation(rs.getString(10));
+				oi.setCountry_id(rs.getString(11));
+				oi.setMobile(rs.getString(12));
+				oi.setEmail(rs.getString(13));
+				oi.setAccount_id(rs.getString(14));
+				oi.setHome_address(rs.getString(15));
+				oi.setOffice_address(rs.getString(16));
+				oi.setProfession(rs.getString(17));
+				oi.setPassword(rs.getString(18));
+				oi.setStatus(rs.getString(19));
+				oi.setCreated(rs.getString(20));
+				oi.setUpdated(rs.getString(21));
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(ps != null){
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return oi;
+	}
+	
 	// generated auto increment id during add [S]
 	public OwnerInfo getOwnerInfoID(){
 		OwnerInfo oi = new OwnerInfo();
@@ -400,18 +465,17 @@ public class OwnerInfoDAO {
     }
 	// QRCodeGenerator [E]
 	
-	public static boolean validate(String owner_id, String password) {
-	//public boolean validate(String merchant_branch_id, String password) {
+	public static boolean validate(String mobile, String password) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		boolean status = false;
+		OwnerInfoDAO ddd = new OwnerInfoDAO();
 		try {
-			//conn=DbUtil.getConnection();
 			con  = DbUtil.getConnection();
-			OwnerInfoDAO ddd = new OwnerInfoDAO();
-			ps = ddd.con.prepareStatement("SELECT owner_id, owner_name, description, owner_type, owner_start_date, father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, password, status, created, updated FROM owner_info where owner_id=? and password=?");
-			ps.setString(1, owner_id);
+			
+			ps = con.prepareStatement("SELECT owner_id, owner_name, description, owner_type, owner_start_date, father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, password, status, created, updated FROM owner_info where mobile=? and password=?");
+			ps.setString(1, mobile);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
 			status = rs.next();
