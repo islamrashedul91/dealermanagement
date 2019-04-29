@@ -59,4 +59,42 @@ public class GetHeader {
 		return localrootPath;
 	}
 	
+	// for email sending [S]
+	public String getHost() throws IOException{
+		prop.load(is);
+		String host= prop.getProperty("host");
+		
+		String strHost = host ;
+
+		return strHost;
+	}
+	
+	public String getPort() throws IOException{
+		prop.load(is);
+		String port= prop.getProperty("port");
+		
+		String strPort = port ;
+
+		return strPort;
+	}
+	
+	public String getUser() throws IOException{
+		prop.load(is);
+		String user= prop.getProperty("user");
+		
+		String strUser = user ;
+
+		return strUser;
+	}
+	
+	public String getPass() throws IOException{
+		prop.load(is);
+		String pass= prop.getProperty("pass");
+		
+		String strPass = pass ;
+
+		return strPass;
+	}
+	// for email sending [E]
+	
 }

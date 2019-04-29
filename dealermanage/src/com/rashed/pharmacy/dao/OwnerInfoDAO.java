@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 //QRCodeGenerator [S]
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -20,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 //QRCodeGenerator [E]
+
 
 import com.rashed.pharmacy.model.OwnerInfo;
 import com.rashed.pharmacy.util.*;
@@ -550,5 +552,89 @@ public class OwnerInfoDAO {
 		}
 	}
 	// change password [E]
+	
+	// forgot password [S]
+	public static boolean validateForgetPassword(String mobile) {
+		boolean status = false;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con  = DbUtil.getConnection();
+			
+			ps = con.prepareStatement("select * from owner_info where mobile=?");
+			ps.setString(1, mobile);
+			rs = ps.executeQuery();
+			status = rs.next();
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(ps != null){
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return status;
+	}
+	
+	public void forgetPassword(OwnerInfo oi){
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try{
+			con  = DbUtil.getConnection();
+			
+			ps = con.prepareStatement("UPDATE owner_info set updated=?, password=? where mobile=?");
+			
+			ps.setString(1, oi.getUpdated());
+			ps.setString(2, oi.getPassword());
+			ps.setString(3, oi.getMobile());
+			
+			ps.executeUpdate();		
+			
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(ps != null){
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	// forgot password [E]
 
 }
