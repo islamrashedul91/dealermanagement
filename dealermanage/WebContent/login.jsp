@@ -53,10 +53,7 @@ String messageForgot = (String)session.getAttribute("messageForgot");
 			</div>
 			<hr>
 			<div class="copyright-link">
-				<h6>
-					Copyright © 2019 Rashed<br>All rights
-					reserved.
-				</h6>
+				<h5>Business Solution. Copyright © 2019 Rashed. All Rights Reserved.</h5>
 			</div>
 		</div>
 	</div>
