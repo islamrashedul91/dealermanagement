@@ -7,17 +7,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<!-- add expire date [S] -->
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.text.ParseException" %>
+<!-- add expire date [E] -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Online Pharmacy</title>
+<title>bizsol</title>
 <link rel="stylesheet" 	href="${pageContext.request.contextPath}/css/table.css">
 </head>
 <body>
 <%
 String action = (String) session.getAttribute("action");
-System.out.println("++++++"+action);
 %>
 <div class="mcontent">
 			<div class="titlenav">
@@ -59,6 +63,24 @@ System.out.println("++++++"+action); */
 SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 Date date = new Date();  
 String strDate = formatter.format(date);
+
+// add expire date [S]
+String licenseExpireDate = "";
+Calendar c = Calendar.getInstance();
+
+	try{
+	   //Setting the date to the given date
+	   c.setTime(formatter.parse(strDate));
+	}catch(ParseException e){
+		e.printStackTrace();
+	 }
+	   
+	// Number of Days to add
+	c.add(Calendar.DAY_OF_MONTH, 365);  
+	//Date after adding the days to the given date
+	licenseExpireDate = formatter.format(c.getTime());  
+	//Displaying the new Date after addition of Days
+// add expire date [E]
 %>
 	<form action="OwnerInfoController" method="post" name="frmSave">
 		<div class="form-style-2-heading">Provide your information</div>
@@ -304,8 +326,24 @@ String strDate = formatter.format(date);
 			if (action.equalsIgnoreCase("save")) {
 			%>
 			<label for="field18"><span>License Expire Date <span class="required">*</span></span>
-				<input type="text" class="input-field-60" name="license_expire_date" id="paslicense_expire_datesword" value="${ownerInfo.license_expire_date}"  maxlength=14 size=40 required /> 
+				<!-- just display fancy date only [S]-->
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="<%=licenseExpireDate%>" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" var="fmtDate" />
+				<input type="text" class="input-field-60" readonly="readonly" value="${fmtDate}" size=40/>
+				<!-- just display fancy date only [E]-->
+				<input type="hidden" class="input-field-60" name="license_expire_date" id="paslicense_expire_datesword" value="<%=licenseExpireDate %>"  maxlength=14 size=40 required /> 
 			</label>
+			<%-- <%
+			} else if (action.equalsIgnoreCase("edit")) {
+			%>
+			<label for="field18"><span>License Expire Date <span class="required">*</span></span>
+				<!-- just display fancy date only [S]-->
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${ownerInfo.license_expire_date}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" var="fmtDate" />
+				<input type="text" class="input-field-60" readonly="readonly" value="${fmtDate}" size=40/>
+				<!-- just display fancy date only [E]-->
+				<input type="hidden" class="input-field-60" name="license_expire_date" id="paslicense_expire_datesword" value="${ownerInfo.license_expire_date}"  maxlength=14 size=40 required /> 
+			</label> --%>
 			<%
 			}
 			%>
