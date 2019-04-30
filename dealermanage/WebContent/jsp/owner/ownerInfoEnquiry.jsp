@@ -109,6 +109,19 @@
 				</td>
 			</tr>
 			
+			<tr>
+				<td Class ="FormCellColor" colspan="2">Last Login</td>
+				<td Class ="FormInputColor" colspan="2">
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${ownerInfo.last_login}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
+				<td Class ="FormCellColor" colspan="2">License Expire Date</td>
+				<td Class ="FormInputColor" colspan="2">
+				<fmt:parseDate pattern="yyyyMMddHHmmss" value="${ownerInfo.license_expire_date}" var="parsedDate" />
+				<fmt:formatDate value="${parsedDate}" pattern="dd-MM-yyyy HH:mm:ss" />
+				</td>
+			</tr>
+			
 		</table>
 		<br>
 		

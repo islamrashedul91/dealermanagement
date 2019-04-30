@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.rashed.pharmacy.dao.OwnerInfoDAO;
+import com.rashed.pharmacy.model.OwnerInfo;
 
 
 public class LoginController extends HttpServlet {
@@ -77,6 +78,11 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("hostName", hostName);
 			//get ip address and host name [E]
 			
+			// set last login time [S]
+			OwnerInfo oi = new OwnerInfo();
+			oi.setMobile(userid);
+			oidao.lastLogin(oi);
+			// set last login time [E]
 			
 			// display name for specific owner [S]
 			session.setAttribute("ownerInfos", oidao.getOwnerInfoByMobile(userid));

@@ -299,6 +299,16 @@ String strDate = formatter.format(date);
 			<%
 			}
 			%>
+			
+			<%
+			if (action.equalsIgnoreCase("save")) {
+			%>
+			<label for="field18"><span>License Expire Date <span class="required">*</span></span>
+				<input type="text" class="input-field-60" name="license_expire_date" id="paslicense_expire_datesword" value="${ownerInfo.license_expire_date}"  maxlength=14 size=40 required /> 
+			</label>
+			<%
+			}
+			%>
 			</div>
 			<br><br>
 			<label><span></span>

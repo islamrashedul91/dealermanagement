@@ -105,6 +105,9 @@ public class OwnerInfoController extends HttpServlet {
 		oi.setStatus(request.getParameter("status"));
 		oi.setCreated(request.getParameter("created"));
 		oi.setUpdated(request.getParameter("updated"));
+		if(action.equalsIgnoreCase("save")){
+			oi.setLicense_expire_date(request.getParameter("license_expire_date"));
+		}
 		
 		String owner_id = request.getParameter("owner_id");
 		String owner_name = request.getParameter("owner_name");

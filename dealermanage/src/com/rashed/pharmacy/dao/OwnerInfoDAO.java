@@ -5,8 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+
 
 
 //QRCodeGenerator [S]
@@ -21,6 +25,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 //QRCodeGenerator [E]
+
+
 
 
 import com.rashed.pharmacy.model.OwnerInfo;
@@ -44,10 +50,15 @@ public class OwnerInfoDAO {
 	String md5Password = "";
 	// MD5 password encrypt [E]
 	
+	/*//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+	Date date = new Date();
+	String strDate = formatter.format(date);*/
+	
 	public void save(OwnerInfo oi){
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("INSERT INTO owner_info(owner_id, owner_name, description, owner_type, owner_start_date, father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, password, status, created, updated) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("INSERT INTO owner_info(owner_id, owner_name, description, owner_type, owner_start_date, father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, password, status, created, updated, license_expire_date) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 	    	try {
 				// MD5 password encrypt [S]
@@ -88,6 +99,7 @@ public class OwnerInfoDAO {
 			ps.setString(19, oi.getStatus());
 			ps.setString(20, oi.getCreated());
 			ps.setString(21, oi.getUpdated());
+			ps.setString(22, oi.getLicense_expire_date());
 			
 			ps.executeUpdate();
 			
@@ -145,7 +157,8 @@ public class OwnerInfoDAO {
 			con  = DbUtil.getConnection();
 			ps = con.prepareStatement("UPDATE owner_info set owner_name=?, description=?, owner_type=?, father_name=?, "
 					+ "mother_name=?, nid=?, dob=?, occupation=?, country_id=?, mobile=?, email=?, account_id=?, home_address=?, office_address=?, "
-					+ "profession=?, password=?, status=?, updated=? where owner_id=?");
+					//+ "profession=?, password=?, status=?, updated=? where owner_id=?");
+					+ "profession=?, status=?, updated=? where owner_id=?");
 			
 			
 			try {
@@ -181,10 +194,10 @@ public class OwnerInfoDAO {
 			ps.setString(14, oi.getOffice_address());
 			ps.setString(15, oi.getProfession());
 			//ps.setString(16, oi.getPassword());
-			ps.setString(16, md5Password);
-			ps.setString(17, oi.getStatus());
-			ps.setString(18, oi.getUpdated());
-			ps.setString(19, oi.getOwner_id());
+			//ps.setString(16, md5Password);
+			ps.setString(16, oi.getStatus());
+			ps.setString(17, oi.getUpdated());
+			ps.setString(18, oi.getOwner_id());
 			
 			ps.executeUpdate();		
 			
@@ -213,7 +226,7 @@ public class OwnerInfoDAO {
 		
 		try{
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("SELECT owner_id, owner_name, description, owner_type, owner_start_date, father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, password, status, created, updated FROM owner_info");
+			ps = con.prepareStatement("SELECT owner_id, owner_name, description, owner_type, owner_start_date, father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, password, status, created, updated, last_login, license_expire_date FROM owner_info");
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
@@ -240,6 +253,8 @@ public class OwnerInfoDAO {
 				oi.setStatus(rs.getString(19));
 				oi.setCreated(rs.getString(20));
 				oi.setUpdated(rs.getString(21));
+				oi.setLast_login(rs.getString(22));
+				oi.setLicense_expire_date(rs.getString(23));
 				
 				list.add(oi);				
 			}
@@ -278,7 +293,7 @@ public class OwnerInfoDAO {
 			con  = DbUtil.getConnection();
 			ps = con.prepareStatement("SELECT owner_id, owner_name, description, owner_type, owner_start_date, "
 					+ "father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, "
-					+ "password, status, created, updated FROM owner_info where owner_id=?");
+					+ "password, status, created, updated, last_login, license_expire_date FROM owner_info where owner_id=?");
 			
 			ps.setString(1, owner_id);
 			
@@ -307,6 +322,8 @@ public class OwnerInfoDAO {
 				oi.setStatus(rs.getString(19));
 				oi.setCreated(rs.getString(20));
 				oi.setUpdated(rs.getString(21));
+				oi.setLast_login(rs.getString(22));
+				oi.setLicense_expire_date(rs.getString(23));
 			}
 		} catch (Exception e){
 			e.printStackTrace();
@@ -344,7 +361,7 @@ public class OwnerInfoDAO {
 			con  = DbUtil.getConnection();
 			ps = con.prepareStatement("SELECT owner_id, owner_name, description, owner_type, owner_start_date, "
 					+ "father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, "
-					+ "password, status, created, updated FROM owner_info where mobile=?");
+					+ "password, status, created, updated, last_login, license_expire_date FROM owner_info where mobile=?");
 			
 			ps.setString(1, mobile);
 			
@@ -372,6 +389,8 @@ public class OwnerInfoDAO {
 				oi.setStatus(rs.getString(19));
 				oi.setCreated(rs.getString(20));
 				oi.setUpdated(rs.getString(21));
+				oi.setLast_login(rs.getString(22));
+				oi.setLicense_expire_date(rs.getString(23));
 			}
 		} catch (Exception e){
 			e.printStackTrace();
@@ -476,7 +495,7 @@ public class OwnerInfoDAO {
 		try {
 			con  = DbUtil.getConnection();
 			
-			ps = con.prepareStatement("SELECT owner_id, owner_name, description, owner_type, owner_start_date, father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, password, status, created, updated FROM owner_info where mobile=? and password=?");
+			ps = con.prepareStatement("SELECT owner_id, owner_name, description, owner_type, owner_start_date, father_name, mother_name, nid, dob, occupation, country_id, mobile, email, account_id, home_address, office_address, profession, password, status, created, updated, last_login, license_expire_date FROM owner_info where mobile=? and password=?");
 			ps.setString(1, mobile);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
@@ -636,5 +655,52 @@ public class OwnerInfoDAO {
 		}
 	}
 	// forgot password [E]
+	
+	// set last login time [S]
+	public void lastLogin(OwnerInfo oi){
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		Date date = new Date();
+		String strLastLoginDate = formatter.format(date);
+		try{
+			con  = DbUtil.getConnection();
+			
+			ps = con.prepareStatement("UPDATE owner_info set last_login=? where mobile=?");
+			
+			ps.setString(1, strLastLoginDate);
+			ps.setString(2, oi.getMobile());
+			
+			ps.executeUpdate();		
+			
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(ps != null){
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	// set last login time [E]
 
 }

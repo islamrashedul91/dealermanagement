@@ -23,6 +23,8 @@ public class OwnerInfo {
 	private String status;          
 	private String created;         
 	private String updated;
+	private String last_login;
+	private String license_expire_date;
 	
 	public String getOwner_id() {
 		return owner_id;
@@ -149,6 +151,18 @@ public class OwnerInfo {
 	}
 	public void setUpdated(String updated) {
 		this.updated = updated;
+	}
+	public String getLast_login() {
+		return last_login;
+	}
+	public void setLast_login(String last_login) {
+		this.last_login = last_login;
+	}
+	public String getLicense_expire_date() {
+		return license_expire_date;
+	}
+	public void setLicense_expire_date(String license_expire_date) {
+		this.license_expire_date = license_expire_date;
 	}
 
 }
