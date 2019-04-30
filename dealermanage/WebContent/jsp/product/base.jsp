@@ -22,8 +22,8 @@
 			<ul>
 				<!-- <li><a href="#"><img class="brand-logo"
 						src="images/ic-wallet-merchant.png" alt="Bulma Admin Template logo"></a></li> -->
-				<!-- <li><a href="#"><img class="brand-logo"
-						src="../../images/nccblogo.png" alt="Bulma Admin Template logo"></a></li> -->
+				<li><a href="${pageContext.request.contextPath}/base.jsp"><img class="brand-logo"
+						src="../../images/matadorgrouplogo.png" alt="Bulma Admin Template logo"></a></li>
 			</ul>
 		</div>
 		<div id="panel1">

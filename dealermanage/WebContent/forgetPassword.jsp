@@ -29,8 +29,7 @@ String messageForgot = (String)session.getAttribute("messageForgot");
 			<div class="menu">
 				<!-- <img src="images/logowallet.png" alt="Italian Trulli" height="40px">&nbsp;&nbsp;&nbsp;
 				<img src="images/nccblogo.png" alt="Italian Trulli" height="40px"> -->
-				<img src="images/matadorgrouplogo.png" alt="Italian Trulli" height="40px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="images/stationary.png" alt="Italian Trulli" height="50px">
+				<img src="images/matadorgrouplogo.png" alt="Italian Trulli" height="70px">
 				<br> <br>
 				<div>
 					<span class="login-text">Sales Management System</span><br> <span
