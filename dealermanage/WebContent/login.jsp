@@ -43,6 +43,9 @@ String messageForgot = (String)session.getAttribute("messageForgot");
 						<button class="btnblck" style="vertical-align: middle">
 							<span>Login</span>
 						</button>
+						<button type="reset" class="btnReset" style="vertical-align: middle">
+							<span>Reset</span>
+						</button>
 					</form>
 					<br> <br>
 					<div class="forgot-password">
