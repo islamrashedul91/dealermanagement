@@ -20,8 +20,6 @@
 	<div class="sidenav">
 		<div class="brand">
 			<ul>
-				<!-- <li><a href="#"><img class="brand-logo"
-						src="images/ic-wallet-merchant.png" alt="Bulma Admin Template logo"></a></li> -->
 				<li><a href="${pageContext.request.contextPath}/base.jsp"><img class="brand-logo"
 						src="images/matadorgrouplogo.png" alt="Bulma Admin Template logo"></a></li>
 			</ul>
@@ -172,10 +170,7 @@
 		<div class="rightnav">
 			<ul>
 				<li class="dropdown"><a href="javascript:void(0)"
-					class="dropbtn"><span class="merchant-user">${ownerName}
-									<%-- <c:forEach items="${ownerInfos}" var="oi">
-										<c:out value="${oi.owner_name}" />
-									</c:forEach> --%>&nbsp;<i
+					class="dropbtn"><span class="merchant-user">${ownerName}&nbsp;<i
 							class="fa fa-angle-down"></i></span></a>
 					<div class="dropdown-content">
 						<!-- <a href="#"><span><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</span></a> -->
