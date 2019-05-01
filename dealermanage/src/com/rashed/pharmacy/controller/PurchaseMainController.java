@@ -413,32 +413,41 @@ public class PurchaseMainController extends HttpServlet {
 			}
 			
 		} else if(action.equalsIgnoreCase("edit")){
-			forward = INSERT_OR_EDIT;
+			// only pending purchase can be updated [S]
 			String purchase_id = request.getParameter("purchase_id");
-			PurchaseMain pm = pmdao.getPurchaseMainById(purchase_id);
-			request.setAttribute("purchaseMain", pm);
-			// for get all the Product_id when update requisition [S]
-			/*request.setAttribute("allProduct", pdao.getAllProduct());*/
-			// for get all the Product_id when update requisition [E]
-			// for get all the Customer when update requisition [S]
-			request.setAttribute("allCustomer", cdao.getAllCustomerInfo());
-			// for get all the Customer when update requisition [E]
-			// for get all the Salesman when update requisition [S]
-			/*request.setAttribute("allSalesman", smdao.getAllSalesmanInfo());*/
-			// for get all the Salesman when update requisition [E]
-			// for get all company when add purchase [S]
-			request.setAttribute("allCompany", comdao.getAllCompany());
-			// for get all company when add purchase [E]
-			// for get Owner when add requisition [S]
-			request.setAttribute("allOwner", odao.getAllOwnerInfo());
-			// for get Owner when add requisition [E]
+			String strPurchaseType = pmdao.getSelectedOtherID(purchase_id).getPurchase_type();
+			String strOrderStatus = pmdao.getSelectedOtherID(purchase_id).getOrder_status();
 			
-			// selected other respective id during update [S]
-			/*request.setAttribute("selectedCustomerId", pmdao.getSelectedOtherID(purchase_id).getCustomer_id());
-			request.setAttribute("selectedSalesmanId", pmdao.getSelectedOtherID(purchase_id).getSalesman_id());*/
-			request.setAttribute("selectedOwnerId", pmdao.getSelectedOtherID(purchase_id).getOwner_id());
-			request.setAttribute("selectedCompanyId", pmdao.getSelectedOtherID(purchase_id).getCompany_id());
-			// selected other respective id during update [E]
+			if(strOrderStatus.equalsIgnoreCase("P")){
+			// only pending purchase can be updated [E]
+				forward = INSERT_OR_EDIT;
+				//String purchase_id = request.getParameter("purchase_id");
+				PurchaseMain pm = pmdao.getPurchaseMainById(purchase_id);
+				request.setAttribute("purchaseMain", pm);
+				// for get all the Customer when update requisition [S]
+				request.setAttribute("allCustomer", cdao.getAllCustomerInfo());
+				// for get all the Customer when update requisition [E]
+				// for get all company when add purchase [S]
+				request.setAttribute("allCompany", comdao.getAllCompany());
+				// for get all company when add purchase [E]
+				// for get Owner when add requisition [S]
+				request.setAttribute("allOwner", odao.getAllOwnerInfo());
+				// for get Owner when add requisition [E]
+				
+				// selected other respective id during update [S]
+				request.setAttribute("selectedOwnerId", pmdao.getSelectedOtherID(purchase_id).getOwner_id());
+				request.setAttribute("selectedCompanyId", pmdao.getSelectedOtherID(purchase_id).getCompany_id());
+				// selected other respective id during update [E]
+			// only pending purchase can be updated [S]
+			} else {
+				if (strOrderStatus.equals("A")) {
+					message = "Only panding purchase can be editable !!!";
+					request.setAttribute("success", message);
+				}
+				forward = LIST_PURCHASEMAIN;
+				request.setAttribute("purchaseMains", pmdao.getAllPurchaseMain());
+			}
+			// only pending purchase can be updated [E]
 		} else if(action.equalsIgnoreCase("purchaseMainList")){
 			forward = LIST_PURCHASEMAIN;
 			request.setAttribute("purchaseMains", pmdao.getAllPurchaseMain());
