@@ -89,20 +89,48 @@ public class PurchaseProductController extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("delete")){
 			String purchase_product_id = request.getParameter("purchase_product_id");
-			//rpdao.delete(requisition_product_id);
+			String strPurchaseId = ppdao.getSelectedOtherID(purchase_product_id).getPurchase_id();
+			String strPurchaseType = ppdao.getSelectedOtherID(purchase_product_id).getPurchase_type();
 			String strOrderStatus = ppdao.getSelectedOtherID(purchase_product_id).getOrder_status();
-			if (!strOrderStatus.equals("A")) {
-				ppdao.delete(purchase_product_id);
+			String strDeliveryStatus = ppdao.getSelectedOtherID(purchase_product_id).getDelivery_status();
+			String date_time = ppdao.getSelectedOtherID(purchase_product_id).getDate_time();
+			
+			if (!strOrderStatus.equals("A") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
+				ppdao.deleteByPPIdPIdDateTime(purchase_product_id, strPurchaseId, date_time);
+				
 				message = "Purchase " + purchase_product_id + " deleted Successfully!!!";
 				request.setAttribute("success", message);
 			} else {
-				message = "Approved Purchase can not be deleted !!!";
-				request.setAttribute("success", message);
+				if (strOrderStatus.equals("C")) {
+					message = "Purchase Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A")) {
+					message = "Approved Purchase can not be deleted !!!";
+					request.setAttribute("success", message);
+				} else if (strDeliveryStatus.equals("C")) {
+					message = "Purchase Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A") && strDeliveryStatus.equals("D")) {
+					message = "Already Delivered !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A") && strDeliveryStatus.equals("R")) {
+					message = "Already Return !!!";
+					request.setAttribute("success", message);
+				}
 			}
 			forward=LIST_PURCHASEPRODUCT;
-			request.setAttribute("purchaseProducts", ppdao.getAllPurchaseProduct());
-			/*message = "Data Deleted Successfully!!!";
-			request.setAttribute("success", message);*/
+			request.setAttribute("purchaseProducts", ppdao.getAllPurchaseProductByMainIdDateTime(strPurchaseId, date_time));
+			
+			request.setAttribute("purchase_id", strPurchaseId);
+			request.setAttribute("purchase_type", strPurchaseType);
+			request.setAttribute("strDateTime", date_time);
+			request.setAttribute("owner_name", pmdao.getPurchaseMainByIdDateTime(strPurchaseId, date_time).getOwner_name());
+			request.setAttribute("mobile", pmdao.getPurchaseMainByIdDateTime(strPurchaseId, date_time).getMobile());
+			
+			request.setAttribute("sumTotalAmount", ppdao.sumTotalAmount(strPurchaseId, date_time).getTotal_amount());
+			
+			pmdao.sumTotalAmountPP(strPurchaseId, date_time);
+			
 		} else if(action.equalsIgnoreCase("cancel")){
 			String purchase_product_id = request.getParameter("purchase_product_id");
 			String strPurchaseId = ppdao.getSelectedOtherID(purchase_product_id).getPurchase_id();

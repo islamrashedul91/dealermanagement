@@ -110,22 +110,38 @@ public class PurchaseMainController extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("delete")){
 			String purchase_id = request.getParameter("purchase_id");
-			//smmdao.delete(requisition_id);
+			String strPurchaseType = pmdao.getSelectedOtherID(purchase_id).getPurchase_type();
 			String strOrderStatus = pmdao.getSelectedOtherID(purchase_id).getOrder_status();
+			String strDeliveryStatus = pmdao.getSelectedOtherID(purchase_id).getDelivery_status();
 			String date_time = pmdao.getSelectedOtherID(purchase_id).getDate_time();
 			
-			if (!strOrderStatus.equals("A") && !strOrderStatus.equals("S")) {
-				pmdao.delete(purchase_id);
+			if (!strOrderStatus.equals("A") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
+				ppdao.deleteByIdDateTime(purchase_id, date_time);
+				pmdao.deleteByIdDateTime(purchase_id, date_time);
+				
 				message = "Purchase " + purchase_id + " deleted Successfully!!!";
 				request.setAttribute("success", message);
 			} else {
-					message = "Approved Purchase can not be deleted !!!";
+				if (strOrderStatus.equals("C")) {
+					message = "Purchase Already Cancelled !!!";
 					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A")) {
+					message = "Approve Purchase can not be deleted !!!";
+					request.setAttribute("success", message);
+				} else if (strDeliveryStatus.equals("C")) {
+					message = "Purchase Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A") && strDeliveryStatus.equals("D")) {
+					message = "Already Delivered !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A") && strDeliveryStatus.equals("R")) {
+					message = "Already Return !!!";
+					request.setAttribute("success", message);
+				}
 			}
 			forward=LIST_PURCHASEMAIN;
 			request.setAttribute("purchaseMains", pmdao.getAllPurchaseMain());
-			/*message = "Data Deleted Successfully!!!";
-			request.setAttribute("success", message);*/
+			
 		} else if(action.equalsIgnoreCase("cancel")){
 			String purchase_id = request.getParameter("purchase_id");
 			String strOrderStatus = pmdao.getSelectedOtherID(purchase_id).getOrder_status();
