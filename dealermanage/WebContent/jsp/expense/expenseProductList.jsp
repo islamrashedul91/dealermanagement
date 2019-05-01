@@ -53,7 +53,7 @@ function getRadioValue()
 	var enquiryPathWithIdValue = "${pageContext.request.contextPath}/ExpenseProductController?action=enquiry&expense_product_id="+idValue;
 	//for enquiry [E]
 	//for cancel [S]
-	var cancelPathWithIdValue = "${pageContext.request.contextPath}/ExpenseProductController?action=cancel&expense_product_id="+idValue;
+	//var cancelPathWithIdValue = "${pageContext.request.contextPath}/ExpenseProductController?action=cancel&expense_product_id="+idValue;
 	//for cancel [E]
 	//for approve [S]
 	//var approvePathWithIdValue = "${pageContext.request.contextPath}/ExpenseProductController?action=approve&expense_product_id="+idValue;
@@ -73,7 +73,7 @@ function getRadioValue()
 		document.getElementById('enquiry').href = enquiryPathWithIdValue;
 		//for enquiry [E]
 		//for cancel [S]
-		document.getElementById('cancel').href = cancelPathWithIdValue;
+		//document.getElementById('cancel').href = cancelPathWithIdValue;
 		//for cancel [E]
 		//for approve [S]
 		//document.getElementById('approve').href = approvePathWithIdValue;
@@ -208,7 +208,7 @@ String message = (String) request.getAttribute("success");
 					<a Class ="button" href="${pageContext.request.contextPath}/ExpenseProductController?action=save">add</a>
 					<a id="update" Class ="button" href="" onclick="javascript: getRadioValue();">update</a>
 					<!-- <a id="approve" Class ="button" href="" onclick="javascript: getRadioValue();">approve</a> -->
-					<a id="cancel" Class ="button" href="" onclick="javascript: getRadioValue();">cancel</a>
+					<!-- <a id="cancel" Class ="button" href="" onclick="javascript: getRadioValue();">cancel</a> -->
 					<a id="delete" Class ="button" href="" onclick="javascript: getRadioValue();">delete</a>
 					<a id="enquiry" Class ="button" href="" onclick="javascript: getRadioValue();">enquiry</a>
 					<a id="expenseCancel" Class ="button" href="" onclick="javascript: getRadioValue();">Expense Cancel</a>
