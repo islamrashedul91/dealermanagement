@@ -1,4 +1,8 @@
 <%
+if (session.getAttribute("username") == null)
+	response.sendRedirect("../../login.jsp");
+%>
+<%
 String action = (String) session.getAttribute("action");
 
 if (action.equalsIgnoreCase("approve") || action.equalsIgnoreCase("expenseApprove") || action.equalsIgnoreCase("expenseCancel")

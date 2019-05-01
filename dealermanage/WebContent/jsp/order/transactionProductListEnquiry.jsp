@@ -1,3 +1,7 @@
+<%
+if (session.getAttribute("username") == null)
+	response.sendRedirect("../../login.jsp");
+%>
 <%-- <jsp:include page="base.jsp"></jsp:include> --%>
 <jsp:include page="../../base.jsp"></jsp:include>
 <br>
