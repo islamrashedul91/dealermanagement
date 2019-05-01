@@ -54,7 +54,6 @@ function discountToTotalAmount() {
 <body>
 <%
 String action = (String) session.getAttribute("action");
-System.out.println("++++++"+action);
 %>
 <div class="mcontent">
 			<div class="titlenav">

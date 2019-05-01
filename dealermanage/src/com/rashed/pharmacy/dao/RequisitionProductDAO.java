@@ -488,7 +488,7 @@ public class RequisitionProductDAO {
 		try{
 			//PreparedStatement ps = con.prepareStatement("SELECT requisition_product_id, requisition_id, product_id, bonus_id, order_status, order_quantity FROM requisition_product WHERE requisition_product_id=?");
 			con  = DbUtil.getConnection();
-			ps = con.prepareStatement("SELECT requisition_product_id, requisition_id, product_id, bonus_id, order_status, order_quantity FROM requisition_product WHERE requisition_product_id=?");
+			ps = con.prepareStatement("SELECT requisition_product_id, requisition_id, product_id, bonus_id, order_status, order_quantity, date_time FROM requisition_product WHERE requisition_product_id=?");
 			
 			ps.setString(1, requisition_product_id);
 			
@@ -503,12 +503,14 @@ public class RequisitionProductDAO {
 				String strBonus = rs.getString("bonus_id");
 				String strOrderStatus = rs.getString("order_status");
 				int intOrderQuantity = rs.getInt("order_quantity");
+				String date_time = rs.getString("date_time");
 				
 				rp.setRequisition_id(strRequisition);
 				rp.setProduct_id(strProduct);
 				rp.setBonus_id(strBonus);
 				rp.setOrder_status(strOrderStatus);
 				rp.setOrder_quantity(intOrderQuantity);
+				rp.setDate_time(date_time);
 				
 			}
 			

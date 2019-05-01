@@ -91,22 +91,43 @@ public class SalesMainController extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("delete")){
 			String sales_id = request.getParameter("sales_id");
-			//smmdao.delete(requisition_id);
+			String strSalesType = smmdao.getSelectedOtherID(sales_id).getSales_type();
 			String strOrderStatus = smmdao.getSelectedOtherID(sales_id).getOrder_status();
+			String strDeliveryStatus = smmdao.getSelectedOtherID(sales_id).getDelivery_status();
+			String strRequisition = smmdao.getSelectedOtherID(sales_id).getRequisition_id();
 			String date_time = smmdao.getSelectedOtherID(sales_id).getDate_time();
 			
-			if (!strOrderStatus.equals("A") && !strOrderStatus.equals("S")) {
+			if (strSalesType.equals("Manual") && !strOrderStatus.equals("S") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
+
+				spdao.deleteByIdDateTime(strRequisition, date_time);
+				//smmdao.deleteByIdDateTime(strRequisition, date_time);
 				smmdao.delete(sales_id);
+				
 				message = "Order " + sales_id + " deleted Successfully!!!";
 				request.setAttribute("success", message);
 			} else {
-					message = "Approved Order can not be deleted !!!";
+				if (strOrderStatus.equals("C")) {
+					message = "Sales Already Cancelled !!!";
 					request.setAttribute("success", message);
+				} else if (!strSalesType.equals("Manual")) {
+					message = "Approved requisition can not be deleted !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("S")) {
+					message = "Success Order can not be deleted !!!";
+					request.setAttribute("success", message);
+				} else if (strDeliveryStatus.equals("C")) {
+					message = "Delivery Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("S") && strDeliveryStatus.equals("D")) {
+					message = "Already Delivered !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("S") && strDeliveryStatus.equals("R")) {
+					message = "Already Return !!!";
+					request.setAttribute("success", message);
+				}
 			}
 			forward=LIST_SALESMAIN;
-			request.setAttribute("salesMains", smmdao.getAllSalesMain());
-			/*message = "Data Deleted Successfully!!!";
-			request.setAttribute("success", message);*/
+			request.setAttribute("salesMains", smmdao.getAllSalesMain());			
 		} else if(action.equalsIgnoreCase("cancel")){
 			String sales_id = request.getParameter("sales_id");
 			String strOrderStatus = smmdao.getSelectedOtherID(sales_id).getOrder_status();

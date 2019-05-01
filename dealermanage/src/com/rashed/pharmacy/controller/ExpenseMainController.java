@@ -66,21 +66,38 @@ public class ExpenseMainController extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("delete")){
 			String expense_id = request.getParameter("expense_id");
+			String strExpenseType = emdao.getSelectedOtherID(expense_id).getExpense_type();
 			String strOrderStatus = emdao.getSelectedOtherID(expense_id).getOrder_status();
+			String strExpenseStatus = emdao.getSelectedOtherID(expense_id).getExpense_status();
 			String date_time = emdao.getSelectedOtherID(expense_id).getDate_time();
 			
-			if (!strOrderStatus.equals("A") && !strOrderStatus.equals("S")) {
+			if (!strOrderStatus.equals("A") && !strExpenseStatus.equals("A") && !strExpenseStatus.equals("C") && !strExpenseStatus.equals("R")) {
+				emdao.deleteByIdDateTime(expense_id, date_time);
 				emdao.delete(expense_id);
+				
 				message = "Expense " + expense_id + " deleted Successfully!!!";
 				request.setAttribute("success", message);
 			} else {
+				if (strOrderStatus.equals("C")) {
+					message = "Expense Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A")) {
 					message = "Approved Expense can not be deleted !!!";
 					request.setAttribute("success", message);
+				} else if (strExpenseStatus.equals("C")) {
+					message = "Expense Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A") && strExpenseStatus.equals("A")) {
+					message = "Already Approved !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A") && strExpenseStatus.equals("C")) {
+					message = "Already Cancelled !!!";
+					request.setAttribute("success", message);
+				}
 			}
 			forward=LIST_EXPENSEMAIN;
 			request.setAttribute("expenseMains", emdao.getAllExpenseMain());
-			/*message = "Data Deleted Successfully!!!";
-			request.setAttribute("success", message);*/
+			
 		} else if(action.equalsIgnoreCase("cancel")){
 			String expense_id = request.getParameter("expense_id");
 			String strOrderStatus = emdao.getSelectedOtherID(expense_id).getOrder_status();

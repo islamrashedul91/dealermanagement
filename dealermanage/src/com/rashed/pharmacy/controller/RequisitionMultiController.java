@@ -80,6 +80,7 @@ public class RequisitionMultiController extends HttpServlet {
 			//if (!strOrderStatus.equals("A") && list.equals("") && list==null && list.size()==0) {
 			if (!strOrderStatus.equals("A")) {
 				rmdao.delete(requisition_id);
+				rpdao.deleteByIdDateTime(requisition_id, date_time);
 				message = "Order " + requisition_id + " deleted Successfully!!!";
 				request.setAttribute("success", message);
 			} else {

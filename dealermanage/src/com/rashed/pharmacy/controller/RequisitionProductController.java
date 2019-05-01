@@ -69,20 +69,34 @@ public class RequisitionProductController extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("delete")){
 			String requisition_product_id = request.getParameter("requisition_product_id");
-			//rpdao.delete(requisition_product_id);
-			String strOrderStatus = rpdao.getSelectedOtherID(requisition_product_id).getOrder_status();
+			String strOrderStatus = rpdao.getSelectedOtherID(requisition_product_id).getOrder_status();			
+			String requisition_id = rpdao.getSelectedOtherID(requisition_product_id).getRequisition_id();
+			String strDateTime = rpdao.getSelectedOtherID(requisition_product_id).getDate_time();
+			
 			if (!strOrderStatus.equals("A")) {
 				rpdao.delete(requisition_product_id);
 				message = "Order " + requisition_product_id + " deleted Successfully!!!";
 				request.setAttribute("success", message);
+				
+				// for insert into requisition_multi total_amount from Requisition Product sum total amount [S]
+				rmdao.sumTotalAmountRP(requisition_id, strDateTime);
+				// for insert into requisition_multi total_amount from Requisition Product sum total amount [E]
 			} else {
 				message = "Approved Order can not be deleted !!!";
 				request.setAttribute("success", message);
 			}
 			forward=LIST_REQUISITIONPRODUCT;
-			request.setAttribute("requisitionProducts", rpdao.getAllRequisitionProduct());
-			/*message = "Data Deleted Successfully!!!";
-			request.setAttribute("success", message);*/
+			request.setAttribute("requisitionProducts", rpdao.getAllRequisitionProductByMultiId(requisition_id, strDateTime));
+			// for transfer data into another page (Product Requisition) [S]
+			HttpSession session1 = request.getSession();
+			request.setAttribute("requisition_multi_id", requisition_id);
+			request.setAttribute("strDateTimeMulti", strDateTime);
+			request.setAttribute("customerNameMulti", rmdao.getRequisitionMultiByIdDateTime(requisition_id, strDateTime).getCustomer_name());
+			request.setAttribute("customerMobileMulti", rmdao.getRequisitionMultiByIdDateTime(requisition_id, strDateTime).getMobile());
+			// for transfer data into another page (Product Requisition) [E]
+			// for Requisition Product sum total amount [S]
+			request.setAttribute("sumTotalAmount", rpdao.sumTotalAmount(requisition_id, strDateTime).getTotal_amount());
+			// for Requisition Product sum total amount [E]
 		} else if(action.equalsIgnoreCase("cancel")){
 			String requisition_product_id = request.getParameter("requisition_product_id");
 			String strOrderStatus = rpdao.getSelectedOtherID(requisition_product_id).getOrder_status();

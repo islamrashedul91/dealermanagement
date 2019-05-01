@@ -49,20 +49,47 @@ public class ExpenseProductController extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("delete")){
 			String expense_product_id = request.getParameter("expense_product_id");
-			//rpdao.delete(requisition_product_id);
+			String strExpenseId = epdao.getSelectedOtherID(expense_product_id).getExpense_id();
+			String strExpenseType = epdao.getSelectedOtherID(expense_product_id).getExpense_type();
+			String date_time = epdao.getSelectedOtherID(expense_product_id).getDate_time();
 			String strOrderStatus = epdao.getSelectedOtherID(expense_product_id).getOrder_status();
-			if (!strOrderStatus.equals("A")) {
-				epdao.delete(expense_product_id);
+			String strExpenseStatus = epdao.getSelectedOtherID(expense_product_id).getExpense_status();
+			
+			if (!strOrderStatus.equals("A") && !strExpenseStatus.equals("A") && !strExpenseStatus.equals("C") && !strExpenseStatus.equals("R")) {
+				epdao.deleteByEPIdEIdDateTime(expense_product_id, strExpenseId, date_time);
+				
 				message = "Expense " + expense_product_id + " deleted Successfully!!!";
 				request.setAttribute("success", message);
 			} else {
-				message = "Approved Expense can not be deleted !!!";
-				request.setAttribute("success", message);
+				if (strOrderStatus.equals("C")) {
+					message = "Expense Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A")) {
+					message = "Approved Expense can not be deleted !!!";
+					request.setAttribute("success", message);
+				} else if (strExpenseStatus.equals("C")) {
+					message = "Expense Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A") && strExpenseStatus.equals("A")) {
+					message = "Already Approved !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("A") && strExpenseStatus.equals("C")) {
+					message = "Already Cancelled !!!";
+					request.setAttribute("success", message);
+				}
 			}
 			forward=LIST_EXPENSEPRODUCT;
-			request.setAttribute("expenseProducts", epdao.getAllExpenseProduct());
-			/*message = "Data Deleted Successfully!!!";
-			request.setAttribute("success", message);*/
+			request.setAttribute("expenseProducts", epdao.getAllExpenseProductByMainIdDateTime(strExpenseId, date_time));
+			
+			request.setAttribute("expense_id", strExpenseId);
+			request.setAttribute("expense_type", strExpenseType);
+			request.setAttribute("strDateTime", date_time);
+			request.setAttribute("owner_name", emdao.getExpenseMainByIdDateTime(strExpenseId, date_time).getOwner_name());
+			request.setAttribute("mobile", emdao.getExpenseMainByIdDateTime(strExpenseId, date_time).getMobile());
+			
+			request.setAttribute("sumTotalAmount", epdao.sumTotalAmount(strExpenseId, date_time).getTotal_amount());
+			emdao.sumTotalAmountEP(strExpenseId, date_time);
+			
 		} else if(action.equalsIgnoreCase("cancel")){
 			String expense_product_id = request.getParameter("expense_product_id");
 			String strExpenseId = epdao.getSelectedOtherID(expense_product_id).getExpense_id();

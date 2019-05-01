@@ -76,20 +76,53 @@ public class SalesProductController extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("delete")){
 			String sales_product_id = request.getParameter("sales_product_id");
-			//rpdao.delete(requisition_product_id);
+			String strSales = spdao.getSelectedOtherID(sales_product_id).getSales_id();
+			String strSalesType = spdao.getSelectedOtherID(sales_product_id).getSales_type();
 			String strOrderStatus = spdao.getSelectedOtherID(sales_product_id).getOrder_status();
-			if (!strOrderStatus.equals("A")) {
-				spdao.delete(sales_product_id);
+			String strDeliveryStatus = spdao.getSelectedOtherID(sales_product_id).getDelivery_status();
+			String strRequisition = spdao.getSelectedOtherID(sales_product_id).getRequisition_id();
+			String date_time = spdao.getSelectedOtherID(sales_product_id).getDate_time();
+			
+			if (strSalesType.equals("Manual") && !strOrderStatus.equals("S") && !strDeliveryStatus.equals("D") && !strDeliveryStatus.equals("C") && !strDeliveryStatus.equals("R")) {
+				
+				spdao.deleteBySPIdRIdDateTime(sales_product_id, strRequisition, date_time);
+				
 				message = "Sales " + sales_product_id + " deleted Successfully!!!";
 				request.setAttribute("success", message);
 			} else {
-				message = "Approved Sales can not be deleted !!!";
-				request.setAttribute("success", message);
+				if (strOrderStatus.equals("C")) {
+					message = "Sales Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (!strSalesType.equals("Manual")) {
+					message = "Approved requisition can not be deleted !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("S")) {
+					message = "Success Order can not be deleted !!!";
+					request.setAttribute("success", message);
+				} else if (strDeliveryStatus.equals("C")) {
+					message = "Delivery Already Cancelled !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("S") && strDeliveryStatus.equals("D")) {
+					message = "Already Delivered !!!";
+					request.setAttribute("success", message);
+				} else if (strOrderStatus.equals("S") && strDeliveryStatus.equals("R")) {
+					message = "Already Return !!!";
+					request.setAttribute("success", message);
+				}
 			}
 			forward=LIST_SALESPRODUCT;
-			request.setAttribute("salesProducts", spdao.getAllSalesProduct());
-			/*message = "Data Deleted Successfully!!!";
-			request.setAttribute("success", message);*/
+			request.setAttribute("salesProducts", spdao.getAllSalesProductByMainIdDateTime(strSales, strRequisition, date_time));
+			
+			request.setAttribute("sales_id", strSales);
+			request.setAttribute("sales_type", strSalesType);
+			request.setAttribute("requisition_id", strRequisition);
+			request.setAttribute("strDateTime", date_time);
+			request.setAttribute("customer_name", smmdao.getSalesMainByIdDateTime(strRequisition, date_time).getCustomer_name());
+			request.setAttribute("mobile", smmdao.getSalesMainByIdDateTime(strRequisition, date_time).getMobile());
+			
+			request.setAttribute("sumTotalAmount", spdao.sumTotalAmount(strSales, strRequisition, date_time).getTotal_amount());
+			
+			smmdao.sumTotalAmountSP(strSales, strRequisition, date_time);
 		} else if(action.equalsIgnoreCase("cancel")){
 			String sales_product_id = request.getParameter("sales_product_id");
 			String strOrderStatus = spdao.getSelectedOtherID(sales_product_id).getOrder_status();
