@@ -149,26 +149,43 @@ public class RequisitionMultiController extends HttpServlet {
 			forward=LIST_REQUISITIONMULTI;
 			request.setAttribute("requisitionMultis", rmdao.getAllRequisitionMulti());
 		} else if(action.equalsIgnoreCase("edit")){
-			forward = INSERT_OR_EDIT;
+			// only pending order can be updated [S]
 			String requisition_id = request.getParameter("requisition_id");
-			RequisitionMulti rm = rmdao.getRequisitionMultiById(requisition_id);
-			request.setAttribute("requisitionMulti", rm);
-			// for get all the Product_id when update requisition [S]
-			/*request.setAttribute("allProduct", pdao.getAllProduct());*/
-			// for get all the Product_id when update requisition [E]
-			// for get all the Customer when update requisition [S]
-			request.setAttribute("allCustomer", cdao.getAllCustomerInfo());
-			// for get all the Customer when update requisition [E]
-			// for get all the Salesman when update requisition [S]
-			request.setAttribute("allSalesman", smdao.getAllSalesmanInfo());
-			// for get all the Salesman when update requisition [E]
+			String strOrderStatus = rmdao.getSelectedOtherID(requisition_id).getOrder_status();
 			
-			// selected other respective id during update [S]
-			request.setAttribute("selectedCustomerId", rmdao.getSelectedOtherID(requisition_id).getCustomer_id());
-			/*request.setAttribute("selectedProductId", rmdao.getSelectedOtherID(requisition_id).getProduct_id());
-			request.setAttribute("selectedBonusId", rmdao.getSelectedOtherID(requisition_id).getBonus_id());*/
-			request.setAttribute("selectedSalesmanId", rmdao.getSelectedOtherID(requisition_id).getSalesman_id());
-			// selected other respective id during update [E]
+			if(strOrderStatus.equalsIgnoreCase("P")){
+			// only pending order can be updated [E]
+				
+				forward = INSERT_OR_EDIT;
+				//String requisition_id = request.getParameter("requisition_id");
+				RequisitionMulti rm = rmdao.getRequisitionMultiById(requisition_id);
+				request.setAttribute("requisitionMulti", rm);
+				// for get all the Product_id when update requisition [S]
+				/*request.setAttribute("allProduct", pdao.getAllProduct());*/
+				// for get all the Product_id when update requisition [E]
+				// for get all the Customer when update requisition [S]
+				request.setAttribute("allCustomer", cdao.getAllCustomerInfo());
+				// for get all the Customer when update requisition [E]
+				// for get all the Salesman when update requisition [S]
+				request.setAttribute("allSalesman", smdao.getAllSalesmanInfo());
+				// for get all the Salesman when update requisition [E]
+				
+				// selected other respective id during update [S]
+				request.setAttribute("selectedCustomerId", rmdao.getSelectedOtherID(requisition_id).getCustomer_id());
+				/*request.setAttribute("selectedProductId", rmdao.getSelectedOtherID(requisition_id).getProduct_id());
+				request.setAttribute("selectedBonusId", rmdao.getSelectedOtherID(requisition_id).getBonus_id());*/
+				request.setAttribute("selectedSalesmanId", rmdao.getSelectedOtherID(requisition_id).getSalesman_id());
+				// selected other respective id during update [E]
+			// only pending order can be updated [S]
+			} else {
+				if (strOrderStatus.equals("A")) {
+					message = "Only panding order can be editable !!!";
+					request.setAttribute("success", message);
+				}
+				forward = LIST_REQUISITIONMULTI;
+				request.setAttribute("requisitionMultis", rmdao.getAllRequisitionMulti());
+			}
+			// only pending order can be updated [E]
 		} else if(action.equalsIgnoreCase("requisitionMultiList")){
 			forward = LIST_REQUISITIONMULTI;
 			request.setAttribute("requisitionMultis", rmdao.getAllRequisitionMulti());

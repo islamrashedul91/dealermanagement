@@ -401,24 +401,43 @@ public class SalesMainController extends HttpServlet {
 			}
 			
 		} else if(action.equalsIgnoreCase("edit")){
-			forward = INSERT_OR_EDIT;
+			// Only manual sales order can be editable [S]
 			String sales_id = request.getParameter("sales_id");
-			SalesMain sm = smmdao.getSalesMainById(sales_id);
-			request.setAttribute("salesMain", sm);
-			// for get all the Product_id when update requisition [S]
-			/*request.setAttribute("allProduct", pdao.getAllProduct());*/
-			// for get all the Product_id when update requisition [E]
-			// for get all the Customer when update requisition [S]
-			request.setAttribute("allCustomer", cdao.getAllCustomerInfo());
-			// for get all the Customer when update requisition [E]
-			// for get all the Salesman when update requisition [S]
-			request.setAttribute("allSalesman", smdao.getAllSalesmanInfo());
-			// for get all the Salesman when update requisition [E]
-			
-			// selected other respective id during update [S]
-			request.setAttribute("selectedCustomerId", smmdao.getSelectedOtherID(sales_id).getCustomer_id());
-			request.setAttribute("selectedSalesmanId", smmdao.getSelectedOtherID(sales_id).getSalesman_id());
-			// selected other respective id during update [E]
+			String strSalesType = smmdao.getSelectedOtherID(sales_id).getSales_type();
+			String strOrderStatus = smmdao.getSelectedOtherID(sales_id).getOrder_status();
+			if(strOrderStatus.equalsIgnoreCase("A") && strSalesType.equals("Manual")){
+			// Only manual sales order can be editable [E]
+				forward = INSERT_OR_EDIT;
+				//String sales_id = request.getParameter("sales_id");
+				SalesMain sm = smmdao.getSalesMainById(sales_id);
+				request.setAttribute("salesMain", sm);
+				// for get all the Product_id when update requisition [S]
+				/*request.setAttribute("allProduct", pdao.getAllProduct());*/
+				// for get all the Product_id when update requisition [E]
+				// for get all the Customer when update requisition [S]
+				request.setAttribute("allCustomer", cdao.getAllCustomerInfo());
+				// for get all the Customer when update requisition [E]
+				// for get all the Salesman when update requisition [S]
+				request.setAttribute("allSalesman", smdao.getAllSalesmanInfo());
+				// for get all the Salesman when update requisition [E]
+				
+				// selected other respective id during update [S]
+				request.setAttribute("selectedCustomerId", smmdao.getSelectedOtherID(sales_id).getCustomer_id());
+				request.setAttribute("selectedSalesmanId", smmdao.getSelectedOtherID(sales_id).getSalesman_id());
+				// selected other respective id during update [E]
+			// Only manual sales order can be editable [S]
+			} else {
+				if(strOrderStatus.equalsIgnoreCase("S")){
+					message = "Success order can be editable !!!";
+					request.setAttribute("success", message);
+				} else {
+					message = "Only manual sales order can be editable !!!";
+					request.setAttribute("success", message);
+				}
+				forward = LIST_SALESMAIN;
+				request.setAttribute("salesMains", smmdao.getAllSalesMain());
+			}
+			// Only manual sales order can be editable [E]
 		} else if(action.equalsIgnoreCase("salesMainList")){
 			forward = LIST_SALESMAIN;
 			request.setAttribute("salesMains", smmdao.getAllSalesMain());

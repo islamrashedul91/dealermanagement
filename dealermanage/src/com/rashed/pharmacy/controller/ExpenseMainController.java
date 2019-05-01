@@ -222,22 +222,38 @@ public class ExpenseMainController extends HttpServlet {
 			forward=LIST_EXPENSEMAIN;
 			request.setAttribute("expenseMains", emdao.getAllExpenseMain());
 		} else if(action.equalsIgnoreCase("edit")){
-			forward = INSERT_OR_EDIT;
+			// only pending order can be updated [S]
 			String expense_id = request.getParameter("expense_id");
-			ExpenseMain em = emdao.getExpenseMainById(expense_id);
-			request.setAttribute("expenseMain", em);
+			String strOrderStatus = emdao.getSelectedOtherID(expense_id).getOrder_status();
 			
-			// for get all company when add purchase [S]
-			request.setAttribute("allCompany", comdao.getAllCompany());
-			// for get all company when add purchase [E]
-			// for get Owner when add requisition [S]
-			request.setAttribute("allOwner", odao.getAllOwnerInfo());
-			// for get Owner when add requisition [E]
-			
-			// selected other respective id during update [S]
-			request.setAttribute("selectedOwnerId", emdao.getSelectedOtherID(expense_id).getOwner_id());
-			request.setAttribute("selectedCompanyId", emdao.getSelectedOtherID(expense_id).getCompany_id());
-			// selected other respective id during update [E]
+			if(strOrderStatus.equalsIgnoreCase("P")){
+			// only pending order can be updated [E]
+				forward = INSERT_OR_EDIT;
+				//String expense_id = request.getParameter("expense_id");
+				ExpenseMain em = emdao.getExpenseMainById(expense_id);
+				request.setAttribute("expenseMain", em);
+				
+				// for get all company when add purchase [S]
+				request.setAttribute("allCompany", comdao.getAllCompany());
+				// for get all company when add purchase [E]
+				// for get Owner when add requisition [S]
+				request.setAttribute("allOwner", odao.getAllOwnerInfo());
+				// for get Owner when add requisition [E]
+				
+				// selected other respective id during update [S]
+				request.setAttribute("selectedOwnerId", emdao.getSelectedOtherID(expense_id).getOwner_id());
+				request.setAttribute("selectedCompanyId", emdao.getSelectedOtherID(expense_id).getCompany_id());
+				// selected other respective id during update [E]
+			// only pending order can be updated [S]
+			} else {
+				if (strOrderStatus.equals("A")) {
+					message = "Only panding order can be editable !!!";
+					request.setAttribute("success", message);
+				}
+				forward = LIST_EXPENSEMAIN;
+				request.setAttribute("expenseMains", emdao.getAllExpenseMain());
+			}
+			// only pending order can be updated [E]
 		} else if(action.equalsIgnoreCase("expenseMainList")){
 			forward = LIST_EXPENSEMAIN;
 			request.setAttribute("expenseMains", emdao.getAllExpenseMain());
